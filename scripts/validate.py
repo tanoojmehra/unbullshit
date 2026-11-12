@@ -1,134 +1,141 @@
 #!/usr/bin/env python3
-"""Dependency-free structural validation of the four public Agent Skills."""
+"""Dependency-free structural and distribution checks for Unbullshit."""
 
 from __future__ import annotations
 
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ROOT / "skills"
-EXPECTED = {
-    "unbullshit",
-    "unbullshit-plan",
-    "unbullshit-audit",
-    "unbullshit-improve",
-}
-NAME_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
+SKILLS = ("unbullshit", "unbullshit-plan", "unbullshit-audit", "unbullshit-improve")
+VERSION = "1.0.0"
+NAME = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 
 
-def validate_skill(path: Path) -> list[str]:
-    errors: list[str] = []
-    file = path / "SKILL.md"
-    if not file.is_file():
-        return [f"{path.name}: missing SKILL.md"]
-
-    text = file.read_text(encoding="utf-8")
-    lines = text.splitlines()
-    if not lines or lines[0] != "---":
-        return [f"{path.name}: missing YAML frontmatter"]
+def parse_json(path: str, errors: list[str]) -> dict:
     try:
-        end = lines.index("---", 1)
-    except ValueError:
-        return [f"{path.name}: unclosed YAML frontmatter"]
-
-    # Deliberately validate the minimal single-line metadata used in this repo.
-    # This is not intended as a general-purpose YAML parser.
-    metadata: dict[str, str] = {}
-    for line in lines[1:end]:
-        if not line.strip():
-            continue
-        if ":" not in line:
-            errors.append(f"{path.name}: malformed metadata line: {line!r}")
-            continue
-        key, value = line.split(":", 1)
-        key = key.strip()
-        if key in metadata:
-            errors.append(f"{path.name}: duplicate metadata key {key}")
-        metadata[key] = value.strip()
-
-    name = metadata.get("name", "")
-    description = metadata.get("description", "")
-    if name != path.name:
-        errors.append(f"{path.name}: metadata name must equal directory name")
-    if not NAME_PATTERN.fullmatch(name) or len(name) > 64:
-        errors.append(f"{path.name}: invalid skill name")
-    if not description or len(description) > 1024:
-        errors.append(f"{path.name}: description required, max 1024 characters")
-    if len(lines) > 500:
-        errors.append(f"{path.name}: SKILL.md exceeds 500 lines")
-    if not any(line.strip() for line in lines[end + 1 :]):
-        errors.append(f"{path.name}: missing instructions")
-    if not text.endswith("\n"):
-        errors.append(f"{path.name}: missing final newline")
-    return errors
+        value = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        if isinstance(value, dict):
+            return value
+        errors.append(f"{path}: expected JSON object")
+    except (OSError, ValueError) as exc:
+        errors.append(f"{path}: {exc}")
+    return {}
 
 
-
-
-def validate_distribution() -> list[str]:
-    """Check documentation and JSON packaging without external dependencies."""
+def check() -> list[str]:
     errors: list[str] = []
-    json_paths = (
-        ROOT / "plugin.json",
-        ROOT / ".claude-plugin" / "plugin.json",
-        ROOT / ".claude-plugin" / "marketplace.json",
-    )
-    records: dict[str, dict] = {}
-    for file in json_paths:
+    if not (ROOT / "skills").is_dir():
+        return ["Missing skills directory"]
+    actual = {p.name for p in (ROOT / "skills").iterdir() if p.is_dir()}
+    if actual != set(SKILLS):
+        errors.append(f"Unexpected skill directories: {sorted(actual)}")
+    for name in SKILLS:
+        path = ROOT / "skills" / name / "SKILL.md"
+        if not path.is_file():
+            errors.append(f"{name}: missing SKILL.md")
+            continue
+        content = path.read_text(encoding="utf-8")
+        lines = content.splitlines()
+        if not lines or lines[0] != "---":
+            errors.append(f"{name}: missing frontmatter")
+            continue
         try:
-            parsed = json.loads(file.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as exc:
-            errors.append(f"{file.relative_to(ROOT)}: {exc}")
+            end = lines.index("---", 1)
+        except ValueError:
+            errors.append(f"{name}: unclosed frontmatter")
             continue
-        if not isinstance(parsed, dict):
-            errors.append(f"{file.relative_to(ROOT)}: expected a JSON object")
-            continue
-        records[file.name + ":" + str(file.parent.relative_to(ROOT))] = parsed
+        metadata: dict[str, str] = {}
+        for line in lines[1:end]:
+            if not line.strip():
+                continue
+            if ":" not in line:
+                errors.append(f"{name}: invalid frontmatter line")
+                continue
+            key, value = [piece.strip() for piece in line.split(":", 1)]
+            if key in metadata:
+                errors.append(f"{name}: duplicate frontmatter key {key}")
+            metadata[key] = value
+        if metadata.get("name") != name or not NAME.fullmatch(metadata.get("name", "")):
+            errors.append(f"{name}: invalid name")
+        if not 1 <= len(metadata.get("description", "")) <= 1024:
+            errors.append(f"{name}: invalid description")
+        if not any(line.strip() for line in lines[end + 1:]) or len(lines) > 500:
+            errors.append(f"{name}: instructions empty or too large")
+        if not content.endswith("\n"):
+            errors.append(f"{name}: missing final newline")
 
-    portable = records.get("plugin.json:.", {})
-    claude = records.get("plugin.json:.claude-plugin", {})
-    market = records.get("marketplace.json:.claude-plugin", {})
-    if portable.get("name") != "unbullshit" or not portable.get("version"):
-        errors.append("plugin.json: invalid portable plugin identity")
-    if claude.get("name") != "unbullshit" or claude.get("version") != portable.get("version"):
-        errors.append(".claude-plugin/plugin.json: plugin identity/version mismatch")
-    plugins = market.get("plugins", [])
-    if (
-        market.get("name") != "unbullshit-skills"
-        or not isinstance(market.get("owner"), dict)
-        or not isinstance(plugins, list)
-        or len(plugins) != 1
-        or not isinstance(plugins[0], dict)
-        or plugins[0].get("name") != "unbullshit"
-        or plugins[0].get("source") != "./"
+    root = parse_json("plugin.json", errors)
+    claude = parse_json(".claude-plugin/plugin.json", errors)
+    codex = parse_json(".codex-plugin/plugin.json", errors)
+    marketplace = parse_json(".claude-plugin/marketplace.json", errors)
+    for path, data in (
+        ("plugin.json", root),
+        (".claude-plugin/plugin.json", claude),
+        (".codex-plugin/plugin.json", codex),
     ):
-        errors.append(".claude-plugin/marketplace.json: invalid marketplace entry")
+        if data.get("name") != "unbullshit" or data.get("version") != VERSION:
+            errors.append(f"{path}: incorrect identity or version")
+    if root.get("$schema") != "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json":
+        errors.append("Portable plugin schema missing")
+    ext = root.get("extensions", {}).get("com.openai", {})
+    interface = ext.get("interface", {}) if isinstance(ext, dict) else {}
+    if not interface.get("displayName") or not interface.get("defaultPrompt"):
+        errors.append("Portable plugin presentation missing")
+    if codex.get("skills") != "./skills/":
+        errors.append("Codex skill path missing")
+    entries = marketplace.get("plugins", [])
+    if (
+        marketplace.get("name") != "unbullshit-skills"
+        or not isinstance(entries, list)
+        or len(entries) != 1
+        or not isinstance(entries[0], dict)
+        or entries[0].get("name") != "unbullshit"
+        or entries[0].get("source") != "./"
+    ):
+        errors.append("Claude marketplace entry mismatch")
 
-    rules = ROOT / "examples" / "AGENTS.md"
-    if not rules.is_file() or "Unbullshit" not in rules.read_text(encoding="utf-8"):
-        errors.append("examples/AGENTS.md: optional standing rules missing")
+    rule = ROOT / ".cursor" / "rules" / "unbullshit.mdc"
+    if not rule.is_file():
+        errors.append("Cursor project rule missing")
+    else:
+        body = rule.read_text(encoding="utf-8")
+        if not body.startswith("---\ndescription:") or "\nalwaysApply: true\n" not in body:
+            errors.append("Cursor project rule frontmatter invalid")
+    if not (ROOT / "examples" / "AGENTS.md").is_file():
+        errors.append("Opt-in standing guidance missing")
+
+    for graphic in ("assets/logo.svg", "assets/wordmark.svg"):
+        try:
+            ET.parse(ROOT / graphic)
+        except (ET.ParseError, OSError) as exc:
+            errors.append(f"{graphic}: {exc}")
+
+    required = (
+        "README.md", "LICENSE", "CHANGELOG.md", "CONTRIBUTING.md",
+        "docs/install.md", "docs/compatibility.md", "docs/troubleshooting.md",
+        "docs/brand.md", "docs/releases/1.0.0.md",
+        "examples/demo.md", "examples/before-after.md",
+    )
+    for name in required:
+        if not (ROOT / name).is_file():
+            errors.append(f"Missing {name}")
+    changelog = ROOT / "CHANGELOG.md"
+    if changelog.exists() and "## 1.0.0" not in changelog.read_text(encoding="utf-8"):
+        errors.append("Missing version 1.0.0 in changelog")
     return errors
+
 
 def main() -> int:
-    if not SKILLS.is_dir():
-        print("Missing skills directory", file=sys.stderr)
-        return 1
-    actual = {path.name for path in SKILLS.iterdir() if path.is_dir()}
-    errors = [
-        *(f"Missing skill: {name}" for name in sorted(EXPECTED - actual)),
-        *(f"Unexpected skill directory: {name}" for name in sorted(actual - EXPECTED)),
-    ]
-    for name in sorted(actual & EXPECTED):
-        errors.extend(validate_skill(SKILLS / name))
-    errors.extend(validate_distribution())
+    errors = check()
     if errors:
-        for error in errors:
-            print(f"FAIL: {error}", file=sys.stderr)
+        for problem in errors:
+            print(f"FAIL: {problem}", file=sys.stderr)
         return 1
-    print(f"OK: {len(EXPECTED)} portable skills validated")
+    print(f"OK: {len(SKILLS)} portable skills and v{VERSION} packaging validated")
     return 0
 
 

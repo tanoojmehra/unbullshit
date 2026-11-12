@@ -2,28 +2,77 @@ name: Validate skills
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  skills:
+  validate:
+    name: Validate skills and distribution
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate Agent Skills and plugin manifests
+      - name: Structural validation
         run: python3 scripts/validate.py
+      - name: Standard-library regression tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+  install:
+    name: Skills CLI install (${{ matrix.agent }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        agent: [claude-code, codex, cursor]
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Smoke test Skills CLI discovery and project installation
+      - name: Discover available skills
+        run: npx --yes skills add "$GITHUB_WORKSPACE" --list
+      - name: Install and inspect all four skills
+        shell: bash
+        env:
+          AGENT: ${{ matrix.agent }}
         run: |
-          npx --yes skills add "$GITHUB_WORKSPACE" --list
-          mkdir -p "$RUNNER_TEMP/unbullshit-smoke"
-          cd "$RUNNER_TEMP/unbullshit-smoke"
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/smoke-$AGENT"
+          cd "$RUNNER_TEMP/smoke-$AGENT"
           git init -q
-          npx --yes skills add "$GITHUB_WORKSPACE" --skill '*' --agent codex --copy --yes
+          npx --yes skills add "$GITHUB_WORKSPACE" --skill '*' --agent "$AGENT" --copy -y
           for skill in unbullshit unbullshit-plan unbullshit-audit unbullshit-improve; do
             test -f ".agents/skills/$skill/SKILL.md"
           done
+
+  release:
+    name: Create v1.0.0 after green checks
+    needs: [validate, install]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create first stable release and version tag once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          assert json.loads(Path("plugin.json").read_text())["version"] == "1.0.0"
+          PY
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            echo "v1.0.0 already exists; keeping the release immutable"
+            exit 0
+          fi
+          gh release create v1.0.0 \
+            --target "$RELEASE_SHA" \
+            --title "Unbullshit v1.0.0" \
+            --notes-file docs/releases/1.0.0.md
