@@ -104,7 +104,9 @@ def run_adapter(command: str, case: dict, variant: str, settings: dict, repetiti
     skill = ""
     if variant == "skill":
         skill = (ROOT / "skills" / case["skill"] / "SKILL.md").read_text(encoding="utf-8")
-    payload = {"case": case, "variant": variant, "skill_instructions": skill,
+    # Never expose the scoring key, expected behaviors or rubric to the model.
+    inputs = {name: case[name] for name in ("id", "skill", "category", "request", "context", "followups")}
+    payload = {"case": inputs, "variant": variant, "skill_instructions": skill,
                "settings": settings, "repetition": repetition}
     proc = subprocess.run(shlex.split(command), input=json.dumps(payload), text=True,
                           capture_output=True, timeout=settings["timeout_seconds"], check=False)
