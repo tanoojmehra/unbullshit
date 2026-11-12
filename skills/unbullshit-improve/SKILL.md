@@ -55,6 +55,9 @@ Choose one project-local location using **tracked** paths: `brain/unbullshit/` o
 
 For a new significant finding, use the same stable-ID register with a supported classification and actual evidence; do not manufacture an audit for a minor fix. For consequential choices the human wants saved, use `decisions/YYYY-MM-DD-topic.md`. Keep status history, existing links, and real safeguards intact. Logging does not authorize changes outside the requested improvement.
 
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
+
 ## Done means
 
 The named problem is improved or there is a clear, grounded recommendation for improving it, with no unnecessary ceremony or unrequested expansion.

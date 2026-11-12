@@ -85,6 +85,9 @@ Each finding must include a stable `id` and Markdown frontmatter fields: `classi
 
 Recordkeeping permission is **not** permission to implement fixes or to turn findings into mandatory tasks.
 
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
+
 ## Done means
 
 The human knows what is unjustified, what is legitimately necessary, what is broken rather than overengineered, and which change—if any—is most worth making next. A zero-findings conclusion with solid evidence is a successful audit.

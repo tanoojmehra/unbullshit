@@ -86,6 +86,9 @@ Choose one project-local location using **tracked** paths: `brain/unbullshit/` o
 
 When a demonstrable overengineering concern deserves ongoing tracking, use a stable `findings/UB-NNNN.md` entry and regenerate `REGISTER.md`; link it from the relevant decision record. Do not manufacture findings or write a register just because a Plan interview started. Use the existing record format and keep one source of truth per decision.
 
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
+
 ## Done means
 
 The human has a clear recommended direction, understands important alternatives and trade-offs, knows what is being built (and not built), and has a usable plan or a focused next decision. Stop there.

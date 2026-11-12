@@ -14,6 +14,8 @@ Inspect the target project's **tracked** paths (for example with `git ls-files`)
 
 A plain `brain/` directory isn't evidence that those integrations are in use. Confirm via the user's statement, installed environment or a verified project marker. An empty, untracked `docs/` directory does not count as tracked docs. For non-Git folders, use root `unbullshit/` unless the user chooses another path.
 
+An existing active register (index, canonical findings, decisions, or reviews) wins even if another location would now be preferred. If multiple locations contain active records, stop and reconcile explicitly. Never silently migrate, merge or overwrite them.
+
 **Do not create a second register** if the project already uses one of these locations. Continue the existing register and preserve history; discuss migration before moving it.
 
 The optional local helper `scripts/unbullshit_log.py` applies this precedence. Its `--brain-enabled` option signals positively confirmed project context, not an assumption about all repositories with a `brain/` directory.
@@ -130,7 +132,13 @@ python3 scripts/unbullshit_log.py --project /path/to/project --brain-enabled reb
 
 The helper creates unique `UB-XXXX.md` files using exclusive creation, regenerates the index, and records status updates. In projects without this helper, an agent can use its usual file tools to produce the same Markdown records.
 
-For parallel work, do not let agents overwrite a register or assign the same ID: create each canonical file exclusively, reconcile any concurrent changes and rebuild the index after merging. If the target has an existing register, review it before assigning IDs.
+For parallel work, use a single cooperative writer per selected register, or an exclusive directory lock around **read → ID assignment → canonical write → index rebuild**. The optional helper takes that lock; on a crash a stale .unbullshit-write.lock directory must be inspected and manually cleared. A busy lock fails closed. Files are exclusively created, and existing records updated atomically while holding the lock. No tool can prevent an unrelated editor that ignores the lock from racing; reconcile external edits before retrying. If a process crashes after a canonical creation but before an index update, the canonical file wins: run rebuild after investigating the stale lock.
+
+**Installed-skill fallback, without the helper:** On a specifically authorized write, identify the target-project root and active register; inspect the canonical finding files, fail on malformed metadata or conflicting registers, allocate the next unused stable UB-NNNN ID, create the new file *exclusively*, append dated history to existing findings (never replace history), and regenerate REGISTER.md sorted by numeric ID from the canonical files. Serialize concurrent writers with the host's available locking/transaction support; if atomic creation or safe locking is not available, do not risk a write collision—present the intended record for manual application. Read-only requests never create even an empty folder.
+
+**Decision continuity:** When consequential planning is requested, consult available approved decision files before reopening a choice. Record only on explicit opt-in: decision, rationale, alternatives and rejected options, approval basis or owner if known, constraints, assumptions, date, related UB IDs and conditions for revisiting. If newer evidence contradicts the decision, say so and ask for a new human choice rather than silently superseding it.
+
+**Malformed records:** Treat missing IDs, invalid classification/status/priority/source, missing dates, or conflicting numeric IDs as errors. Never rebuild an index from partial data or replace a corrupt finding while guessing its intent.
 
 ## Boundaries
 

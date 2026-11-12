@@ -59,6 +59,9 @@ Choose one project-local location using **tracked** paths: `brain/unbullshit/` o
 
 Use `REGISTER.md` as a regenerable index, stable `findings/UB-NNNN.md` records for evidence-backed findings, `decisions/` for explicitly retained consequential decisions, and `reviews/` for requested audit summaries. Distinguish actual unnecessary complexity or friction from defects, legitimate safeguards, and unverified hypotheses. Preserve history and don't create duplicate findings. Recording is not a permission gate or permission to expand the current task.
 
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
+
 ## Finish
 
 Provide the useful result. For implementation work: what changed, what was verified, and any important limitation. For non-implementation work: the answer and the next decision only if genuinely needed. Keep it short unless the user requests depth.
