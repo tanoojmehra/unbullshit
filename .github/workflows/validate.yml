@@ -12,5 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate Agent Skills
+      - name: Validate Agent Skills and plugin manifests
         run: python3 scripts/validate.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Smoke test Skills CLI discovery and project installation
+        run: |
+          npx --yes skills add "$GITHUB_WORKSPACE" --list
+          mkdir -p "$RUNNER_TEMP/unbullshit-smoke"
+          cd "$RUNNER_TEMP/unbullshit-smoke"
+          git init -q
+          npx --yes skills add "$GITHUB_WORKSPACE" --skill '*' --agent codex --copy --yes
+          for skill in unbullshit unbullshit-plan unbullshit-audit unbullshit-improve; do
+            test -f ".agents/skills/$skill/SKILL.md"
+          done

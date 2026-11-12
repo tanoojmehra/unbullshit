@@ -48,9 +48,33 @@ Skill invocation syntax depends on the host. The plain-language examples work as
 
 ## Install
 
-Each subdirectory under [`skills/`](skills/) is a self-contained Agent Skill containing its own `SKILL.md`. Install one or all four by copying the directories into the **skills directory recognized by your AI agent**.
+Install with the [Skills CLI](https://github.com/vercel-labs/skills), or manually copy any of the four self-contained skills under [`skills/`](skills/).
 
-For a project using the common `.agents/skills` convention:
+**Discover the skills:**
+
+```sh
+npx skills add tanoojmehra/unbullshit --list
+```
+
+**Install all four for your current project:**
+
+```sh
+npx skills add tanoojmehra/unbullshit --skill '*' -y
+```
+
+**Install only the lightweight base skill for everyday use across projects:**
+
+```sh
+npx skills add tanoojmehra/unbullshit --skill unbullshit --global -y
+```
+
+The CLI supports explicit agent targets (for example, `--agent codex` or `--agent claude-code`). Omitting `--global` keeps installation project-scoped. An installed skill is discoverable/invocable, **not guaranteed to run on every turn**.
+
+Want a persistent, always-on version of the base principles? Opt in by copying or merging [`examples/AGENTS.md`](examples/AGENTS.md) into a project's `AGENTS.md`, or into `CLAUDE.md` for Claude Code. This is **separate from installing the skill**; it doesn't modify execution permissions.
+
+**Native plugin options:** The repository also contains a root `plugin.json` for compatible Agent Plugins/Codex hosts and a Claude Code marketplace. See [installation and validation instructions](docs/install.md), including commands, scope selection, and test status.
+
+For manual installation into a project with the common `.agents/skills` convention:
 
 ```sh
 git clone https://github.com/tanoojmehra/unbullshit.git
@@ -58,7 +82,7 @@ mkdir -p /path/to/your-project/.agents/skills
 cp -R unbullshit/skills/* /path/to/your-project/.agents/skills/
 ```
 
-Other clients may use different skill directories or installation commands. Consult your agent's documentation. Installing a skill does not, by itself, grant filesystem, network, or execution permissions. Whether the base skill can be always-on depends on the host's configuration.
+Agent-specific skill directories and plugin support vary; follow your host's documentation. Skill installation does not grant filesystem, network, or execution permissions.
 
 ## How the skills differ
 

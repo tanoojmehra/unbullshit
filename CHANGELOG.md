@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-11-13
+
+- Documented one-command installation and explicit per-agent skill selection.
+- Added an opt-in `AGENTS.md` standing-guidance template for users who want everyday scope discipline.
+- Added portable Agent Plugins and Claude Code marketplace manifests without hooks or new dependencies.
+- Added distribution validation and a Skills CLI installation smoke test to CI.
+
 ## 0.1.0 — 2026-11-13
 
 Initial public release:

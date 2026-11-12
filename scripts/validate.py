@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -65,6 +66,52 @@ def validate_skill(path: Path) -> list[str]:
     return errors
 
 
+
+
+def validate_distribution() -> list[str]:
+    """Check documentation and JSON packaging without external dependencies."""
+    errors: list[str] = []
+    json_paths = (
+        ROOT / "plugin.json",
+        ROOT / ".claude-plugin" / "plugin.json",
+        ROOT / ".claude-plugin" / "marketplace.json",
+    )
+    records: dict[str, dict] = {}
+    for file in json_paths:
+        try:
+            parsed = json.loads(file.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            errors.append(f"{file.relative_to(ROOT)}: {exc}")
+            continue
+        if not isinstance(parsed, dict):
+            errors.append(f"{file.relative_to(ROOT)}: expected a JSON object")
+            continue
+        records[file.name + ":" + str(file.parent.relative_to(ROOT))] = parsed
+
+    portable = records.get("plugin.json:.", {})
+    claude = records.get("plugin.json:.claude-plugin", {})
+    market = records.get("marketplace.json:.claude-plugin", {})
+    if portable.get("name") != "unbullshit" or not portable.get("version"):
+        errors.append("plugin.json: invalid portable plugin identity")
+    if claude.get("name") != "unbullshit" or claude.get("version") != portable.get("version"):
+        errors.append(".claude-plugin/plugin.json: plugin identity/version mismatch")
+    plugins = market.get("plugins", [])
+    if (
+        market.get("name") != "unbullshit-skills"
+        or not isinstance(market.get("owner"), dict)
+        or not isinstance(plugins, list)
+        or len(plugins) != 1
+        or not isinstance(plugins[0], dict)
+        or plugins[0].get("name") != "unbullshit"
+        or plugins[0].get("source") != "./"
+    ):
+        errors.append(".claude-plugin/marketplace.json: invalid marketplace entry")
+
+    rules = ROOT / "examples" / "AGENTS.md"
+    if not rules.is_file() or "Unbullshit" not in rules.read_text(encoding="utf-8"):
+        errors.append("examples/AGENTS.md: optional standing rules missing")
+    return errors
+
 def main() -> int:
     if not SKILLS.is_dir():
         print("Missing skills directory", file=sys.stderr)
@@ -76,6 +123,7 @@ def main() -> int:
     ]
     for name in sorted(actual & EXPECTED):
         errors.extend(validate_skill(SKILLS / name))
+    errors.extend(validate_distribution())
     if errors:
         for error in errors:
             print(f"FAIL: {error}", file=sys.stderr)

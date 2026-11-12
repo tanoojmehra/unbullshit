@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unbullshit",
+  "version": "0.1.1",
+  "description": "Four portable, instruction-only skills for pragmatic project planning, evidence-led audits, focused improvements, and everyday scope discipline."
+}

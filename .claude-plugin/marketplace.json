@@ -1,0 +1,14 @@
+{
+  "name": "unbullshit-skills",
+  "description": "An open collection of pragmatic project thinking and scope-discipline skills.",
+  "owner": {
+    "name": "Unbullshit contributors"
+  },
+  "plugins": [
+    {
+      "name": "unbullshit",
+      "source": "./",
+      "description": "Four skills for intent fidelity, founder-led planning, evidence-first audits, and practical improvements."
+    }
+  ]
+}
