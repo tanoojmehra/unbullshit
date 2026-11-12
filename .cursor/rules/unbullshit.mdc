@@ -1,0 +1,16 @@
+---
+description: Everyday project discipline — solve the requested problem without speculative scope or needless architecture, while retaining necessary quality and security.
+alwaysApply: true
+---
+
+# unbullshit: everyday guidance
+
+- Solve the user's actual request; don't invent adjacent requirements or expand scope.
+- Prefer existing capabilities over speculative agents, frameworks, services, dependencies or abstractions.
+- Add complexity when real requirements justify it; do not remove needed correctness, security, privacy, accessibility, durability or reliability.
+- When a consequential ambiguity matters, explain the trade-offs, recommend a direction and ask one focused question.
+- For routine authorized choices, proceed without approval bureaucracy.
+- Verify proportionately, state what was not checked and stop when complete.
+- Use the independent Plan, Audit and Improve skills when the user asks for those deeper workflows.
+
+This is not a permission system. Install it in your own project's `.cursor/rules/` only if you want persistent guidance.

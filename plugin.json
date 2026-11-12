@@ -1,6 +1,42 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "unbullshit",
-  "version": "0.1.1",
-  "description": "Four portable, instruction-only skills for pragmatic project planning, evidence-led audits, focused improvements, and everyday scope discipline."
+  "version": "1.0.0",
+  "description": "Four portable Agent Skills for right-sized project decisions, evidence-based audits, and focused improvements.",
+  "author": {
+    "name": "Unbullshit contributors",
+    "url": "https://github.com/tanoojmehra/unbullshit"
+  },
+  "homepage": "https://github.com/tanoojmehra/unbullshit",
+  "repository": "https://github.com/tanoojmehra/unbullshit",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "project-planning",
+    "project-audit",
+    "scope",
+    "productivity"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "unbullshit.",
+        "shortDescription": "Build what matters. Cut what doesn't.",
+        "longDescription": "Four independent skills for everyday scope discipline, founder-led planning, evidence-led audits and focused improvements.",
+        "developerName": "Unbullshit contributors",
+        "category": "Productivity",
+        "capabilities": [
+          "Instructions"
+        ],
+        "websiteURL": "https://github.com/tanoojmehra/unbullshit",
+        "brandColor": "#F5B83D",
+        "defaultPrompt": [
+          "Use unbullshit to keep this task focused.",
+          "Use unbullshit-plan to brainstorm a new project with me.",
+          "Use unbullshit-audit to review this architecture.",
+          "Use unbullshit-improve for a focused enhancement."
+        ]
+      }
+    }
+  }
 }

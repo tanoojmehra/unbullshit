@@ -1,8 +1,12 @@
 {
   "name": "unbullshit",
-  "version": "0.1.1",
-  "description": "Build what matters. Cut what doesn't. Four pragmatic skills for better projects and less unnecessary complexity.",
+  "version": "1.0.0",
+  "description": "Build what matters. Cut what doesn't. Four independent, lightweight Agent Skills.",
   "author": {
-    "name": "Unbullshit contributors"
-  }
+    "name": "Unbullshit contributors",
+    "url": "https://github.com/tanoojmehra/unbullshit"
+  },
+  "homepage": "https://github.com/tanoojmehra/unbullshit",
+  "repository": "https://github.com/tanoojmehra/unbullshit",
+  "license": "MIT"
 }

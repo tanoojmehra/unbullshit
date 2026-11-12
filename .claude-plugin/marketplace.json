@@ -1,14 +1,17 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "unbullshit-skills",
-  "description": "An open collection of pragmatic project thinking and scope-discipline skills.",
+  "description": "Pragmatic AI skills for better project decisions and less unnecessary work.",
   "owner": {
-    "name": "Unbullshit contributors"
+    "name": "Unbullshit contributors",
+    "url": "https://github.com/tanoojmehra/unbullshit"
   },
   "plugins": [
     {
       "name": "unbullshit",
       "source": "./",
-      "description": "Four skills for intent fidelity, founder-led planning, evidence-first audits, and practical improvements."
+      "description": "Build what matters. Cut what doesn't. Four independent, lightweight Agent Skills.",
+      "category": "productivity"
     }
   ]
 }

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 172" role="img" aria-labelledby="title desc">
+<title id="title">unbullshit.</title><desc id="desc">White unbullshit wordmark and amber mark on a dark charcoal background.</desc>
+<rect width="900" height="172" rx="24" fill="#171717"/>
+<g transform="translate(23 21)"><path d="M34 34v40c0 19 12 30 30 30s30-11 30-30V34" fill="none" stroke="#F5B83D" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M29 92 99 40" fill="none" stroke="#F4F4F0" stroke-width="8" stroke-linecap="round"/></g>
+<text x="177" y="110" font-family="system-ui,Arial,sans-serif" font-size="81" font-weight="750" letter-spacing="-3" fill="#F4F4F0">unbullshit<tspan fill="#F5B83D">.</tspan></text>
+<text x="181" y="145" font-family="system-ui,Arial,sans-serif" font-size="23" fill="#C7C7BE">Build what matters. Cut what doesn't.</text>
+</svg>
