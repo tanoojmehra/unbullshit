@@ -73,6 +73,15 @@ def tracked_files(root: Path) -> set[str]:
 
 
 def select_path(root: Path, *, brain_enabled: bool = False) -> Path:
+    # Respect a previously chosen register even if project structure changes.
+    candidates = (root / "brain" / "unbullshit",
+                  root / "docs" / "unbullshit",
+                  root / "unbullshit")
+    active = [folder for folder in candidates if (folder / "REGISTER.md").is_file()]
+    if len(active) > 1:
+        raise ValueError("Multiple existing Unbullshit registers: reconcile them before writing")
+    if active:
+        return active[0]
     tracked = tracked_files(root)
     brain = any(name.startswith("brain/") for name in tracked)
     docs = any(name.startswith("docs/") for name in tracked)

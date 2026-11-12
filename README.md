@@ -53,6 +53,22 @@ Preserve their behavior and verify the changes.
 
 See [before/after examples](examples/before-after.md) and the [90-second walkthrough](examples/demo.md).
 
+## Project-local Unbullshit register (opt-in)
+
+Record supported findings and consequential decisions **inside the project being reviewed**, not inside the installed skill. Use this location precedence:
+
+| Project context | Record folder |
+| --- | --- |
+| Confirmed **kenmark-studio / kenmark-skills** use **and** tracked `brain/` | `brain/unbullshit/` |
+| Otherwise tracked `docs/` | `docs/unbullshit/` |
+| Otherwise | `unbullshit/` at project root |
+
+An existing active register takes precedence so history does not become scattered. The folder contains a durable **`REGISTER.md`** index, evidence-backed **`findings/UB-NNNN.md`** entries, and optional **`decisions/`** and **`reviews/`**. Unnecessary complexity, friction, ordinary defects, retained safeguards and uncertainty have different classifications; no invented bullshit scores.
+
+**Plan** saves approved consequential decisions when asked, **Audit** persists grounded findings when recording is authorized, **Improve** updates verified outcomes, and the lightweight **base** skill never logs routine work automatically. Existing read-only instructions still take precedence.
+
+[Recordkeeping specification](docs/recordkeeping.md) · [Optional CLI helper](scripts/unbullshit_log.py) · [Regression tests](tests/test_recordkeeping.py)
+
 ## Persistent base guidance (optional)
 
 To apply Unbullshit's core principles in everyday agent turns, intentionally merge the [standing guidance template](examples/AGENTS.md) into your project instructions. For Cursor, copy the [always-apply project rule](.cursor/rules/unbullshit.mdc) into **your project's** `.cursor/rules/`. For Claude Code, use `CLAUDE.md`.

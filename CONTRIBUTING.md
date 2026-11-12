@@ -15,6 +15,8 @@ python3 scripts/validate.py
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
+For recordkeeping changes, follow the [record format and location precedence](docs/recordkeeping.md), add a scenario or test in [tests/test_recordkeeping.py](tests/test_recordkeeping.py), and ensure existing registers are never silently overwritten or duplicated. Documents must not become a permission authority or mandatory task ledger.
+
 For behavioral changes, test the same prompt with and without the skill where possible. Include counterexamples where a complex solution is justified. A passing structural check isn't proof of better agent judgment.
 
 A good PR describes: original failure, intended behavior, minimal change, tests, and what could be harmed by excessive simplification. No mandatory agents, new runtime dependencies, telemetry, or permission policies.

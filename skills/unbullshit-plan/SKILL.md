@@ -68,7 +68,7 @@ Planning is not permission to implement, purchase, deploy, hire, contact third p
 
 ## Recording agreed decisions (when requested)
 
-Keep the founder interview conversational, not a writing ceremony. **Only when the human wants a durable project plan or decision record**, save significant *approved* choices, trade-offs, constraints, and reconsideration triggers in `decisions/YYYY-MM-DD-topic.md`. Mark unchosen options and uncertain assumptions accurately; do not present the AI's recommendation as an agreed decision.
+Keep the founder interview conversational, not a writing ceremony. **Only when the human wants a durable project plan or decision record (or has opted in to an existing project register)**, save significant *approved* choices, trade-offs, constraints, and reconsideration triggers in `decisions/YYYY-MM-DD-topic.md`. Mark unchosen options and uncertain assumptions accurately; do not present the AI's recommendation as an agreed decision.
 
 Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
 

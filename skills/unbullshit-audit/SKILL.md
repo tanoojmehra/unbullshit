@@ -75,7 +75,7 @@ If asked, add a small sequence of proposed improvements; **do not** automaticall
 
 ## Persisting an audit (when the human authorizes documentation)
 
-An audit remains **read-only by default**. When the human asks to save findings, maintain a bullshit register, or otherwise record the audit in the target project, write project-local Markdown records and a concise scoped review.
+An audit remains **read-only by default**. When the human asks to save findings, maintain a bullshit register, or otherwise record the audit in the target project, write project-local Markdown records and a concise scoped review. If an existing register reflects prior explicit opt-in, continue maintaining it when the human has authorized project-documentation writes; explicit read-only instructions always override this.
 
 Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
 

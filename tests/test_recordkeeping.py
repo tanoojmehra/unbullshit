@@ -61,6 +61,18 @@ class RecordTests(unittest.TestCase):
         (self.root / "docs" / "untracked.md").write_text("untracked")
         self.assertEqual(log.select_path(self.root), self.root / "unbullshit")
 
+    def test_existing_register_wins_over_new_placement_rule(self):
+        track(self.root, "docs/readme.md")
+        original = self.root / "unbullshit"
+        log.initialize(original)
+        self.assertEqual(log.select_path(self.root), original)
+
+    def test_competing_existing_registers_require_resolution(self):
+        log.initialize(self.root / "docs/unbullshit")
+        log.initialize(self.root / "unbullshit")
+        with self.assertRaisesRegex(ValueError, "Multiple existing"):
+            log.select_path(self.root)
+
     def test_no_git_destination_uses_root(self):
         with tempfile.TemporaryDirectory() as temp:
             project = Path(temp)

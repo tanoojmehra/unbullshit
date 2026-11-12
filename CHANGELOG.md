@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added opt-in, project-local Unbullshit records with `brain/unbullshit/`, `docs/unbullshit/`, and root `unbullshit/` routing.
+- Documented evidence-backed findings, durable IDs, classifications, lifecycle statuses, decisions, audit summaries and role-specific recording behavior for all four skills.
+- Added a dependency-free recordkeeping helper and Git-based routing, register/index and lifecycle regression tests.
+- Kept the published `v1.0.0` tag unchanged; these changes are not yet part of a tagged release.
+
 ## 1.0.0 — 2026-11-13
 
 - Four independent portable skills, originally introduced in the 0.1 series.
