@@ -100,6 +100,28 @@ One issue, one canonical ID. Keep resolved records and append dated status chang
 
 These are Markdown, not a required YAML database. Avoid sensitive data, credentials, raw customer records, and unnecessarily long transcripts.
 
+### Example approved decision (only after opt-in)
+
+Save as decisions/2026-11-13-manual-confirmation.md, using the actual decision date:
+
+```markdown
+# Manual confirmation for launch
+
+- Date: 2026-11-13
+- Status: approved
+- Approval basis: founder explicitly chose this during planning
+- Decision: staff manually confirm requested appointment slots
+- Rationale: no initial calendar integration; staff already maintain availability
+- Alternatives: automatic sync (rejected for launch); no booking (rejected)
+- Constraints and trade-offs: mobile web only; show pending state; slower confirmations
+- Assumptions and open questions: staff can respond during working hours
+- Review trigger: frequent delays or conflicting confirmations
+- Related finding: none
+- Supersedes: none
+```
+
+This is a **format illustration**, not an actual recorded founder approval. When an approval basis is unknown, label it unknown; do not invent a person or a sign-off. Preserve rejected and superseded alternatives so future sessions do not reopen them reflexively.
+
 ## Mapping to each skill
 
 | Skill | How to use the project record |

@@ -27,7 +27,7 @@ The person may be nontechnical. Explain engineering implications in terms of cap
 
 ### Context-first question selection
 
-Before asking, extract what the current prompt, previous answers, supplied files, and (when relevant and available) **already-authorized project decisions** establish. Keep a short internal picture: known user and pain; approved scope and constraints; rejected alternatives; assumptions; the one unknown most likely to alter the plan. Do not repeat a question when its answer is already present, and do not relabel your recommendation as founder approval.
+Before asking, extract what the current prompt, previous answers, supplied files, and (when relevant and available) **already-authorized project decisions** establish. If a target project has an opted-in Unbullshit decisions folder, read relevant files before revisiting a settled choice; distinguish approved, rejected, open, assumed and superseded items. Keep a short internal picture: known user and pain; approved scope and constraints; rejected alternatives; assumptions; the one unknown most likely to alter the plan. Do not repeat a question when its answer is already present, and do not relabel your recommendation as founder approval.
 
 Choose the next question by its **decision impact**, not a script: What plausible answers would change the target user, first-release scope, business risk, feasibility, cost, or acceptance checks? If none, stop asking and recommend a path. After each answer, update the picture; don't follow a fixed question tree. Explain the impact when non-obvious.
 
@@ -56,6 +56,12 @@ Challenge features and complexity before endorsing them:
 - **Risk:** Which requirements are nonnegotiable for security, privacy, accessibility, integrity, regulation, or recovery?
 
 Avoid anti-complexity dogma. When the evidence supports sophisticated design, recommend it explicitly.
+
+## Decision continuity across sessions
+
+When relevant project records are available, check their decision owner/approval basis, rationale, alternatives rejected, constraints, review triggers and superseding entries. Continue with the last *approved* choice unless a new requirement or evidence actually conflicts; explain the contradiction and recommend a path for human reconsideration. A prior agent recommendation, undated note, or unresolved question is **not** human authorization. Do not silently overwrite or revive a superseded decision.
+
+On an authorized decision write, use the existing project-local decisions/YYYY-MM-DD-topic.md convention. Capture the decision, rationale, alternatives (including rejected ones), approving person/basis if known, date, binding constraints/trade-offs, explicitly uncertain assumptions, review triggers and related/superseded records. Record new authorization as a new dated entry or explicit revision preserving history; never fabricate founder approval. Decision recording remains opt-in and must not delay ordinary planning.
 
 ## When to stop interviewing
 

@@ -13,11 +13,11 @@ Use for an existing feature, interaction, workflow, process, or modest enhanceme
 ## The focused loop
 
 1. **Understand the pain.** What is inconvenient, confusing, slow, costly, fragile, or missing? What user-visible outcome would count as better?
-2. **Inspect the relevant area.** Look at existing behavior, patterns, constraints, and dependencies. Avoid sweeping scans unless the change genuinely spans the project.
+2. **Inspect the relevant area.** Look at existing behavior, patterns, constraints, previous approved decisions, existing utilities and dependencies. Avoid sweeping scans unless the change genuinely spans the project.
 3. **Find the simplest sufficient improvement.** Prefer reuse, consolidation, clarification, or a small targeted change over a new framework, service, workflow, or feature family.
 4. **Surface a material choice if one exists.** Explain trade-offs in plain language, recommend an approach, and ask **one focused question** when the answer affects behavior, data, architecture, or significant cost. Otherwise proceed.
 5. **Act within the request.** If the user authorized implementation and tools allow it, make the bounded change. If the user asked for ideas or a review only, present recommendations without modifying anything.
-6. **Verify and stop.** Check relevant outcomes and regressions; report what changed, what was actually tested, and anything uncertain.
+6. **Verify and stop.** Check relevant outcomes and regressions, including critical existing requirements; report what changed, tests actually run and their results. If a write failed, a tool was unavailable, or tests failed, report partial progress and the blocker, not completion. Stop rather than initiating unrelated cleanup.
 
 ## Reality check
 
@@ -41,7 +41,7 @@ When the user disagrees with the recommendation, respect the decision within aut
 
 For advice-only work: summarize the pain, recommend the targeted change, and give the key trade-off or next step.
 
-For implementation: give a short outcome, changed areas, relevant checks performed, and remaining limitations. Do not generate a lengthy plan, risk register, tickets, changelog, or large refactor unless the task warrants or explicitly requests them.
+For implementation: give a short outcome, changed areas, relevant checks actually performed (including failures), and remaining limitations. Do not generate a lengthy plan, risk register, tickets, changelog, or large refactor unless the task warrants or explicitly requests them.
 
 ## Boundaries
 

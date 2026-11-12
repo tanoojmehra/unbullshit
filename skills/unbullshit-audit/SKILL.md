@@ -39,7 +39,10 @@ For each credible candidate, ask:
 2. **Why is it there?** Locate the decision or owner intent when possible.
 3. **What cost does it cause?** Time, complexity, money, errors, risk, cognitive burden, or delayed delivery.
 4. **Is it justified?** Compare to actual requirements and simpler alternatives.
-5. **What would change safely?** Include migration and verification if removal affects live behavior.
+5. **What would change safely?** Name the simplest better alternative, the risk of modifying or removing the component, the safeguards to preserve, and a concrete verification method.
+6. **What is not known?** Identify missing owner intent, operational constraints or evidence. Insufficient support means **uncertain**, not a confident recommendation to delete.
+
+For every meaningful reported finding, connect the exact observation and available source (path and line, document or runtime trace if actually inspected), relevant business or engineering requirement, harm or unnecessary cost, better alternative, change risk, uncertainty and verification. Do not convert speculation into a file citation or an invented stakeholder requirement. An apparently redundant queue, cache, audit approval or agent may have a documented reason; a bug needs defect treatment, not a 'bullshit' label. Where new evidence contradicts an old finding, correct or reopen that record rather than defending the original classification.
 
 Classify findings honestly as:
 
@@ -65,10 +68,10 @@ Use the human to resolve **material intent or trade-offs**, not to substitute fo
 
 Lead with the overall judgment and the most important evidence, including what is already well justified. Then provide a prioritized set of **only** supported findings. For each meaningful finding, include:
 
-- **Observation and evidence:** Link/path/line, document, quote, or runtime result when available; otherwise the precise evidence gap.
+- **Observation and evidence:** Exact observed behavior, actual link/path/line, document or runtime result when inspected; otherwise the precise evidence gap. State the requirement against which it is evaluated.
 - **Why it matters:** Actual effect on users, maintainers, budget, time, or risk.
 - **Recommendation:** Retain, remove, simplify, combine, defer, replace, or investigate; explain why and what functionality must remain.
-- **Trade-off and confidence:** What may be lost, what you still need to confirm, and the safest verification.
+- **Trade-off, uncertainty and verification:** Risk of the proposed change, safeguards that must survive, what is unknown, and the cheapest reliable check before action.
 - **Priority:** Relative to the user's goals and impact, not a universal severity taxonomy.
 
 If asked, add a small sequence of proposed improvements; **do not** automatically create tickets, rewrite architecture, change policy, or edit files. Audits are read-only unless the user explicitly authorizes implementation.
