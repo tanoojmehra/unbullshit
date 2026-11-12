@@ -40,7 +40,7 @@ class DistributionTests(unittest.TestCase):
         body = (ROOT / ".cursor/rules/unbullshit.mdc").read_text()
         guide = (ROOT / "docs/install.md").read_text()
         self.assertIn("alwaysApply: true", body)
-        self.assertIn("copying", guide.lower() + " copying")
+        self.assertIn("copying", guide.lower())
         self.assertIn("target project", guide.lower())
 
     def test_readme_local_links_resolve(self):

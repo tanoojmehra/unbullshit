@@ -44,7 +44,11 @@ jobs:
           git init -q
           npx --yes skills add "$GITHUB_WORKSPACE" --skill '*' --agent "$AGENT" --copy -y
           for skill in unbullshit unbullshit-plan unbullshit-audit unbullshit-improve; do
-            test -f ".agents/skills/$skill/SKILL.md"
+            if [ "$AGENT" = "claude-code" ]; then
+              test -f ".claude/skills/$skill/SKILL.md"
+            else
+              test -f ".agents/skills/$skill/SKILL.md"
+            fi
           done
 
   release:
