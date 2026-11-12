@@ -51,7 +51,7 @@ Use unbullshit-improve to simplify these notification settings.
 Preserve their behavior and verify the changes.
 ```
 
-See [before/after examples](examples/before-after.md) and the [90-second walkthrough](examples/demo.md).
+See [six scripted demonstrations](examples/demo.md), [before/after contrasts](examples/before-after.md) and [reproducible benchmarking](docs/benchmarking.md). The demonstrations are **authored examples, not measured model improvements**.
 
 ## Project-local Unbullshit register (opt-in)
 
@@ -82,6 +82,22 @@ python3 scripts/validate.py
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-CI is configured to run these checks and Skills CLI installation smoke tests for Claude Code, Codex, and Cursor. **Smoke tests do not prove that a model follows the skills correctly.** See [compatibility](docs/compatibility.md) and [behavioral scenarios](tests/scenarios.md).
+CI is configured to run these checks, offline fixture validation, and Skills CLI installation smoke tests for Claude Code, Codex, and Cursor.
+
+Run the **illustrative** behavioral comparison locally (no model or API key required):
+
+```sh
+python3 scripts/evaluate_behavior.py --validate \
+  --baseline tests/behavioral/fixtures/baseline.json \
+  --enabled tests/behavioral/fixtures/skill.json
+python3 scripts/evaluate_behavior.py \
+  --baseline tests/behavioral/fixtures/baseline.json \
+  --enabled tests/behavioral/fixtures/skill.json \
+  --output-dir /tmp/unbullshit-behavior
+```
+
+This produces counts of literal checks on **authored fixtures**, not a claim of better agent behavior. See [benchmarking](docs/benchmarking.md) for optional real-agent comparisons and human review.
+
+CI is also configured for installation smoke tests for Claude Code, Codex, and Cursor. **Smoke tests do not prove that a model follows the skills correctly.** See [compatibility](docs/compatibility.md) and [behavioral scenarios](tests/scenarios.md).
 
 [Contributing](CONTRIBUTING.md) · [Brand assets](docs/brand.md) · [MIT license](LICENSE) · [v1.0.0 release notes](docs/releases/1.0.0.md)

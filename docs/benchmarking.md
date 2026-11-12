@@ -23,7 +23,7 @@ Cases reside in tests/behavioral/cases.json. Add a unique ID, initial request, c
 
 ## Optional real-agent adapter
 
-A contributor can pass --adapter 'python3 path/to/adapter.py' in place of fixture files. The command receives one JSON object on stdin with case, variant (baseline or skill), skill_instructions (empty for baseline, the target skill's actual SKILL.md text for enabled), settings and repetition. It must print JSON with a response string. The adapter is responsible for genuinely injecting the instructions into otherwise identical agent contexts and handling followups/tool results; do not claim it did so without examining it.
+A contributor can pass --adapter 'python3 path/to/adapter.py' in place of fixture files. The command receives one JSON object on stdin with case, variant (baseline or skill), skill_instructions (empty for baseline, the target skill's actual SKILL.md text for enabled), settings and repetition. It must print JSON with a response string. The case input sent to adapters deliberately excludes expected behaviors, grading checks and human rubrics. The adapter is responsible for genuinely injecting the instructions into otherwise identical agent contexts and handling followups/tool results; do not claim it did so without examining it.
 
 Example: ```sh
 python3 scripts/evaluate_behavior.py --adapter "python3 my_adapter.py" \

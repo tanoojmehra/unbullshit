@@ -18,6 +18,10 @@ jobs:
         run: python3 scripts/validate.py
       - name: Standard-library regression tests
         run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Offline behavioral fixtures (illustrative, not live-model results)
+        run: |
+          python3 scripts/evaluate_behavior.py --validate             --baseline tests/behavioral/fixtures/baseline.json             --enabled tests/behavioral/fixtures/skill.json
+          python3 scripts/evaluate_behavior.py             --baseline tests/behavioral/fixtures/baseline.json             --enabled tests/behavioral/fixtures/skill.json             --output-dir "$RUNNER_TEMP/behavioral-report"
 
   install:
     name: Skills CLI install (${{ matrix.agent }})

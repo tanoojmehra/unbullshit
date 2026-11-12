@@ -1,6 +1,6 @@
 # Install Unbullshit
 
-All four skills are independent `SKILL.md` bundles. There are no required runtime dependencies, MCP servers, hooks, or permissions.
+All four skills are independent `SKILL.md` bundles. There are no required runtime dependencies, MCP servers, hooks, or permissions. The optional repository CLI scripts are **not** bundled with individual installed skills; recordkeeping instructions in each SKILL.md work without them.
 
 ## Skills CLI — Claude Code, Codex and Cursor
 
@@ -57,6 +57,10 @@ cp -R unbullshit/skills/* /path/to/your-project/.agents/skills/
 ```
 
 Check your host's actual skill path. Installing a skill is not the same as activating it every turn. Use the optional standing guidance when that's desired; do not overwrite existing project rules or grant extra tool permissions.
+
+## Verify actual use
+
+After installing, confirm the four SKILL.md paths exist, restart the chosen host, check whether the host **discovers** the skills, and explicitly invoke one in a small task. If it is missing, see [troubleshooting](troubleshooting.md). A successful file-copy, manifest, or CLI install is not proof of discovery, activation, or better behavior. Compare saved baseline/skill responses offline with [the behavioral runner](benchmarking.md); live comparisons require a real adapter and human review.
 
 ## Verify
 
