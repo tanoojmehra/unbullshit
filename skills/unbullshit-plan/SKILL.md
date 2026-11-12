@@ -66,6 +66,14 @@ For a simple plan, a few paragraphs may suffice; do not force six formal heading
 
 Planning is not permission to implement, purchase, deploy, hire, contact third parties, or alter a repository. Do not create project artifacts or policy gates unless requested. Use available documents or code to ground technical proposals; if you did not inspect them, say so. Do not require a complete interview to give a useful provisional plan when the human cannot answer immediately.
 
+## Recording agreed decisions (when requested)
+
+Keep the founder interview conversational, not a writing ceremony. **Only when the human wants a durable project plan or decision record**, save significant *approved* choices, trade-offs, constraints, and reconsideration triggers in `decisions/YYYY-MM-DD-topic.md`. Mark unchosen options and uncertain assumptions accurately; do not present the AI's recommendation as an agreed decision.
+
+Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
+
+When a demonstrable overengineering concern deserves ongoing tracking, use a stable `findings/UB-NNNN.md` entry and regenerate `REGISTER.md`; link it from the relevant decision record. Do not manufacture findings or write a register just because a Plan interview started. Use the existing record format and keep one source of truth per decision.
+
 ## Done means
 
 The human has a clear recommended direction, understands important alternatives and trade-offs, knows what is being built (and not built), and has a usable plan or a focused next decision. Stop there.

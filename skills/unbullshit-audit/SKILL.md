@@ -73,6 +73,18 @@ Lead with the overall judgment and the most important evidence, including what i
 
 If asked, add a small sequence of proposed improvements; **do not** automatically create tickets, rewrite architecture, change policy, or edit files. Audits are read-only unless the user explicitly authorizes implementation.
 
+## Persisting an audit (when the human authorizes documentation)
+
+An audit remains **read-only by default**. When the human asks to save findings, maintain a bullshit register, or otherwise record the audit in the target project, write project-local Markdown records and a concise scoped review.
+
+Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
+
+Within that folder, use `findings/UB-NNNN.md` for each distinct supported finding, `REGISTER.md` for a regenerable ID-sorted index, and `reviews/YYYY-MM-DD-scope.md` for the scope, evidence coverage, conclusions, links, and relevant retained safeguards. A review with **zero** issues is valid. Reuse and update existing findings instead of duplicating them.
+
+Each finding must include a stable `id` and Markdown frontmatter fields: `classification` (`unjustified-complexity`, `unnecessary-friction`, `defect`, `justified-complexity`, `uncertain`), `status` (`open`, `needs-review`, `accepted`, `in-progress`, `resolved`, `wont-fix`), `priority`, `source: unbullshit-audit`, `created`, and `updated`. The body needs actual observation, evidence and limitations, recommendation, trade-offs and verification, and a dated decision/history entry. Do **not** treat defects, necessary protections, or low-confidence suspicions as confirmed bullshit. Keep the index consistent with files, and never silently overwrite or delete history.
+
+Recordkeeping permission is **not** permission to implement fixes or to turn findings into mandatory tasks.
+
 ## Done means
 
 The human knows what is unjustified, what is legitimately necessary, what is broken rather than overengineered, and which change—if any—is most worth making next. A zero-findings conclusion with solid evidence is a successful audit.

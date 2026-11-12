@@ -47,6 +47,14 @@ For implementation: give a short outcome, changed areas, relevant checks perform
 
 Do not turn a suggestion into permission to edit; do not change unrelated features, dependencies, architecture, or product strategy. Keep real protections and explicit constraints. If a change turns out to require major product decisions, explain that boundary and propose the smallest decision needed before continuing.
 
+## Updating project findings (only when authorized)
+
+Routine small improvements need no register, ticket, or extra ceremony. If an authorized improvement addresses an existing recorded Unbullshit finding, locate that project's active `findings/UB-NNNN.md` record and **when authorized to update project records**, append the actual change, verification, remaining risks, and dated status transition; rebuild `REGISTER.md`. Do not call an improvement resolved until verification supports it.
+
+Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
+
+For a new significant finding, use the same stable-ID register with a supported classification and actual evidence; do not manufacture an audit for a minor fix. For consequential choices the human wants saved, use `decisions/YYYY-MM-DD-topic.md`. Keep status history, existing links, and real safeguards intact. Logging does not authorize changes outside the requested improvement.
+
 ## Done means
 
 The named problem is improved or there is a clear, grounded recommendation for improving it, with no unnecessary ceremony or unrequested expansion.

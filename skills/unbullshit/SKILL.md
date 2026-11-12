@@ -51,6 +51,14 @@ Do not convert your personal preference into a new restriction. Honor explicit r
 - Manufacture findings, pretend a project must be simplified, or lecture the user about complexity.
 - Create issues, change policy, rewrite unrelated components, or expand scope without authorization.
 
+## Optional project-local recordkeeping
+
+**Do not create a register, scan for registers, or write routine task notes by default.** If the human explicitly asks to preserve a material finding or decision for future sessions, follow the existing project's Unbullshit records convention.
+
+Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
+
+Use `REGISTER.md` as a regenerable index, stable `findings/UB-NNNN.md` records for evidence-backed findings, `decisions/` for explicitly retained consequential decisions, and `reviews/` for requested audit summaries. Distinguish actual unnecessary complexity or friction from defects, legitimate safeguards, and unverified hypotheses. Preserve history and don't create duplicate findings. Recording is not a permission gate or permission to expand the current task.
+
 ## Finish
 
 Provide the useful result. For implementation work: what changed, what was verified, and any important limitation. For non-implementation work: the answer and the next decision only if genuinely needed. Keep it short unless the user requests depth.
