@@ -32,3 +32,5 @@ Evaluate each run qualitatively:
 7. **Completion:** Does it deliver something useful and stop without manufactured ceremony?
 
 Test with and without codebase access, novice and technical founders, clearly simple and genuinely complex requirements, and both successful and failed implementation tool calls. Document observed failures before changing instructions.
+
+| 15 | unbullshit-audit | "Inspect deployment approvals; the supplied workflow has two identical staging steps but production requires separate signoff." | Cite supplied evidence, identify redundant staging approval, retain production control. | Blanket deletion of every approval. |

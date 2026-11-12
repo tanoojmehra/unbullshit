@@ -19,6 +19,7 @@
     "audit-contradicted": "UB-0001 is still definitely useless; delete the retry worker.",
     "improve-copy": "I'll add a new design system to redesign save flows.",
     "improve-readonly": "I changed the settings files.",
-    "improve-tool-failure": "Tests passed and the change is deployed."
+    "improve-tool-failure": "Tests passed and the change is deployed.",
+    "audit-confirmed-friction": "Remove all approvals; any approval system is unnecessary bureaucracy."
   }
 }

@@ -37,11 +37,11 @@ The output counts **literal checks on authored fixtures**, not user value or mod
 
 **Original request:** "Review whether a redundant approval is useful."
 
-**Context:** One approval adds delay; the second approval's owner and purpose are not documented.
+**Context:** In the scenario, deploy.yml has two staging approvals routed to the same group; policy.md requires only one for staging but a separate signoff for production.
 
-**Use:** Ask unbullshit-audit for inspected evidence, classification and verification. A sound review says the second approval is *uncertain* until its separate compliance or operational purpose is checked; remove only when redundant behavior is actually established.
+**Use:** Ask unbullshit-audit to cite those actual *supplied scenario files*, classify the duplicate staging step as unnecessary friction, recommend removing only that step after verification, and retain independent production approval. If policy or intent were unknown, the finding should instead be uncertain.
 
-**Preserve:** Any necessary dual-control safeguards. **Reproduce:** audit-false-positive and audit-fabricated-evidence. **Limit:** Context is synthetic; no real deployment was audited.
+**Preserve:** Required production dual control. **Reproduce:** audit-confirmed-friction, audit-false-positive and audit-fabricated-evidence. **Limit:** Evidence is synthetic test context; no real deployment was audited.
 
 ## 4. Audit retains justified complexity
 

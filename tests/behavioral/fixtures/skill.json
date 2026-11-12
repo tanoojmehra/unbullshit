@@ -19,6 +19,7 @@
     "audit-contradicted": "New evidence from retry logs contradicts the earlier claim. Retain the worker for refund handling and reopen the finding for reassessment.",
     "improve-copy": "I can change the label to Save changes using existing components, preserve the accessible name and verify affected behavior.",
     "improve-readonly": "I suggest clarifying the save labels and feedback; this is advice only and no files will be edited.",
-    "improve-tool-failure": "The change is blocked by permission denied; implementation and tests remain unverified. I cannot claim completion."
+    "improve-tool-failure": "The change is blocked by permission denied; implementation and tests remain unverified. I cannot claim completion.",
+    "audit-confirmed-friction": "Evidence: deploy.yml routes two staging approvals to release-team, while policy.md requires just one staging approval. This supports an unnecessary-friction finding: recommend removing the duplicate staging approval after verifying the workflow. Retain the independent production signoff. This is a read-only recommendation; no files were changed."
   }
 }
