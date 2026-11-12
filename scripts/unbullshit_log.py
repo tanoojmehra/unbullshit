@@ -183,8 +183,8 @@ def add(folder: Path, args: argparse.Namespace) -> Path:
     directory = folder / "findings"
     directory.mkdir(exist_ok=True)
     existing = records(folder)
-    if any(t.casefold() == title.casefold() and f["status"] != "resolved" for _, f, t in existing):
-        raise ValueError("An unresolved finding with this title already exists")
+    if any(t.casefold() == title.casefold() for _, _, t in existing):
+        raise ValueError("A finding with this title already exists; update or reopen its stable ID")
     next_id = max((int(f["id"][3:]) for _, f, _ in existing), default=0) + 1
     date = today()
     while True:

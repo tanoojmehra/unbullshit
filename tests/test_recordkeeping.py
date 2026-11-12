@@ -101,6 +101,20 @@ class RecordTests(unittest.TestCase):
         self.assertIn("Verified by tests", first.read_text())
         self.assertTrue((location / "README.md").exists())
 
+    def test_resolved_finding_keeps_its_identity(self):
+        folder = log.select_path(self.root)
+        args = SimpleNamespace(title="Redundant queue", classification="unjustified-complexity",
+                               source="unbullshit-audit", priority="medium",
+                               summary="Duplicated behavior", evidence="Reviewed workflows",
+                               recommendation="Consolidate")
+        log.add(folder, args)
+        log.set_status(folder, "UB-0001", "resolved", "Verified remediation")
+        with self.assertRaisesRegex(ValueError, "already exists"):
+            log.add(folder, args)
+        log.set_status(folder, "UB-0001", "open", "Regression reopened for review")
+        self.assertEqual(len(log.records(folder)), 1)
+        self.assertIn("Regression reopened", (folder / "findings/UB-0001.md").read_text())
+
     def test_duplicate_open_finding_rejected(self):
         folder = log.select_path(self.root)
         args = SimpleNamespace(title="Duplicate approval", classification="defect",
