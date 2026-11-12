@@ -1,125 +1,71 @@
-# unbullshit
+<p align="center"><img src="assets/wordmark.svg" alt="unbullshit. — Build what matters. Cut what doesn't." width="680"></p>
 
-**Build what matters. Cut what doesn't.**
+<p align="center"><strong>Four open Agent Skills. Better decisions. Less unnecessary work.</strong></p>
 
-Unbullshit is a free, open-source family of four portable [Agent Skills](https://agentskills.io/) for better decisions about projects, products, workflows, and software. It helps people and AI agents avoid invented requirements, speculative architecture, pointless ceremony, and work that does not advance the real goal.
+<p align="center"><a href="docs/install.md">Install</a> · <a href="docs/compatibility.md">Compatibility</a> · <a href="examples/demo.md">90-second demo</a> · <a href="examples/before-after.md">Before &amp; after</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
 
-**Unbullshit is not a mandate to make everything smaller.** The right solution can be sophisticated. What matters is whether its complexity is justified by real needs and constraints.
+Unbullshit is a free, open-source collection of four portable [Agent Skills](https://agentskills.io/) for pragmatic project decisions. It challenges invented requirements, speculative architecture, unnecessary AI agents, and process theater—without sacrificing what the user actually needs.
 
-## The four skills
-
-| Skill | Use it when | What it does |
-| --- | --- | --- |
-| [`unbullshit`](skills/unbullshit/SKILL.md) | Everyday requests, as lightweight background guidance | Stays true to user intent, avoids scope drift and speculative work, then finishes. |
-| [`unbullshit-plan`](skills/unbullshit-plan/SKILL.md) | A new project, major feature, significant redesign, or consequential decision | Brainstorms with the human, interviews on the decisions that matter, recommends alternatives, and produces a right-sized plan. |
-| [`unbullshit-audit`](skills/unbullshit-audit/SKILL.md) | Reviewing an existing project, plan, codebase, architecture, or direction | Investigates evidence, distinguishes genuine problems from justified complexity, and provides a prioritized, actionable assessment. |
-| [`unbullshit-improve`](skills/unbullshit-improve/SKILL.md) | A focused improvement to something that already exists | Understands the pain point, recommends the smallest sufficient change, implements when authorized, and verifies. |
-
-They are **independent entry points**, not a required sequence. The three specialist skills include the core principles themselves; you do not need to load the base skill twice.
-
-## The defining behavior: interview, recommend, let humans decide
-
-For a decision with meaningful consequences, an Unbullshit skill should:
-
-1. Understand the human's desired outcome and constraints.
-2. Investigate what is already known before asking for information.
-3. Explain the real trade-offs in plain language.
-4. Recommend a direction, with reasons and conditions that would change it.
-5. Ask **one high-value question at a time** when an answer is needed.
-6. Respect the human's decision and carry it forward without repeatedly reopening it.
-
-A founder should never have to understand the difference between a message queue and an event bus to explain their business problem. Translate technical choices into capability, cost, delivery time, risk, and ongoing maintenance.
-
-This is **not** an interview for every trivial change. `unbullshit` and `unbullshit-improve` proceed on ordinary, authorized tasks. `unbullshit-plan` uses a more deliberate conversation. `unbullshit-audit` investigates first and asks only where material intent or constraints remain unclear.
-
-## Try it
-
-```text
-Use unbullshit: Add CSV export to the customer table. Reuse what is there and avoid expanding the feature.
-
-Use unbullshit-plan: Help me brainstorm an internal CRM for 100 people. Interview me about decisions that affect the scope, recommend a practical direction, then plan it.
-
-Use unbullshit-audit: Review this architecture and repository. Where have we overcomplicated the product, AI workflows, and deployment? Cite evidence, including cases where complexity is justified.
-
-Use unbullshit-improve: Simplify the current notification settings without changing their behavior. Inspect, make the focused change, and verify.
-```
-
-Skill invocation syntax depends on the host. The plain-language examples work as prompts for agents that discover these installed skills.
+**Not always less. The right amount, for the right reasons.**
 
 ## Install
 
-Install with the [Skills CLI](https://github.com/vercel-labs/skills), or manually copy any of the four self-contained skills under [`skills/`](skills/).
-
-**Discover the skills:**
-
 ```sh
+# Discover four skills
 npx skills add tanoojmehra/unbullshit --list
-```
-
-**Install all four for your current project:**
-
-```sh
+# Install all four in this project
 npx skills add tanoojmehra/unbullshit --skill '*' -y
-```
-
-**Install only the lightweight base skill for everyday use across projects:**
-
-```sh
+# Or install the lightweight base globally
 npx skills add tanoojmehra/unbullshit --skill unbullshit --global -y
 ```
 
-The CLI supports explicit agent targets (for example, `--agent codex` or `--agent claude-code`). Omitting `--global` keeps installation project-scoped. An installed skill is discoverable/invocable, **not guaranteed to run on every turn**.
+Choose a specific host with `--agent claude-code`, `--agent codex`, or `--agent cursor`. Installation makes the skill available; it **doesn't automatically activate the base skill for every turn**.
 
-Want a persistent, always-on version of the base principles? Opt in by copying or merging [`examples/AGENTS.md`](examples/AGENTS.md) into a project's `AGENTS.md`, or into `CLAUDE.md` for Claude Code. This is **separate from installing the skill**; it doesn't modify execution permissions.
+[Detailed installation](docs/install.md) · [Troubleshooting](docs/troubleshooting.md) · [Host compatibility](docs/compatibility.md)
 
-**Native plugin options:** The repository also contains a root `plugin.json` for compatible Agent Plugins/Codex hosts and a Claude Code marketplace. See [installation and validation instructions](docs/install.md), including commands, scope selection, and test status.
+## Four independent skills
 
-For manual installation into a project with the common `.agents/skills` convention:
+| Skill | Use it for | Main outcome |
+| --- | --- | --- |
+| [`unbullshit`](skills/unbullshit/SKILL.md) | Everyday work | Stay on scope, avoid speculative work, verify and stop. |
+| [`unbullshit-plan`](skills/unbullshit-plan/SKILL.md) | New projects, major features, consequential decisions | Brainstorm, interview, explain options and create a right-sized plan. |
+| [`unbullshit-audit`](skills/unbullshit-audit/SKILL.md) | Existing projects, codebases, decisions and roadmaps | Evidence-led findings that distinguish unjustified complexity, defects and necessary safeguards. |
+| [`unbullshit-improve`](skills/unbullshit-improve/SKILL.md) | Focused improvements | Make useful changes without an elaborate planning exercise. |
 
-```sh
-git clone https://github.com/tanoojmehra/unbullshit.git
-mkdir -p /path/to/your-project/.agents/skills
-cp -R unbullshit/skills/* /path/to/your-project/.agents/skills/
+No forced Plan → Audit → Improve pipeline. Each specialist skill stands alone.
+
+## Human-first judgment
+
+When a consequential decision is unclear, the agent should explain alternatives, recommend a direction, and ask **one useful question at a time**. The human makes the call. When a routine task is already authorized, the agent proceeds without inventing an approval process.
+
+```text
+Use unbullshit while adding CSV export to this table. No unrelated features.
+
+Use unbullshit-plan to brainstorm a small appointment-booking product.
+Interview me on major choices and recommend a sensible first release.
+
+Use unbullshit-audit on this architecture. Cite actual evidence,
+identify unjustified complexity, and say what's justified too.
+
+Use unbullshit-improve to simplify these notification settings.
+Preserve their behavior and verify the changes.
 ```
 
-Agent-specific skill directories and plugin support vary; follow your host's documentation. Skill installation does not grant filesystem, network, or execution permissions.
+See [before/after examples](examples/before-after.md) and the [90-second walkthrough](examples/demo.md).
 
-## How the skills differ
+## Persistent base guidance (optional)
 
-- **Plan asks:** What should we build, and which consequential choices must the human make?
-- **Audit asks:** What is actually wrong, unjustified, missing, or risky? What evidence supports that?
-- **Improve asks:** What is the smallest useful improvement to this defined problem?
-- **Base asks:** Am I doing exactly the justified work the human requested?
+To apply Unbullshit's core principles in everyday agent turns, intentionally merge the [standing guidance template](examples/AGENTS.md) into your project instructions. For Cursor, copy the [always-apply project rule](.cursor/rules/unbullshit.mdc) into **your project's** `.cursor/rules/`. For Claude Code, use `CLAUDE.md`.
 
-These questions work for business workflows and physical-world projects as well as for software. When there is no repository, reason from the brief and available documents; don't invent code evidence.
+No accounts, API keys, background services, hidden telemetry, new permission gates or mandatory hooks.
 
-## Principles
-
-- **Intent over invention:** Do the job asked for; do not manufacture product requirements.
-- **Proportionality over austerity:** Prefer the least complex solution that actually satisfies the need.
-- **Evidence over confidence:** Label assumptions, uncertainty, estimates, and unverified claims.
-- **Existing capability over reinvention:** Reuse proven systems before adding new ones.
-- **Human agency over hidden governance:** Explain consequential choices; don't silently override a decision.
-- **Quality over shortcuts:** Keep appropriate security, privacy, accessibility, correctness, observability, recoverability, and reliability.
-- **Progress over ceremony:** No mandatory forms, scores, extra agents, elaborate plans, or process for its own sake.
-- **Honest finish:** Verify what can be verified and say what was not checked.
-
-No skill should invent an approval gate or silently take away access granted by the agent host. Equally, no skill should bypass real permissions or treat an unverified success as complete.
-
-## Quality and contribution
-
-This repository uses the open `SKILL.md` format: required `name` and `description` frontmatter, with focused Markdown instructions. There are no runtime dependencies.
-
-Run the lightweight structural validator:
+## Quality and release
 
 ```sh
 python3 scripts/validate.py
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-See [behavioral test scenarios](tests/scenarios.md) for manual evaluations that probe interview quality, right-sizing, grounded audits, and scope discipline. Static validation does **not** establish model-behavior reliability; test skills with real agent runs as well.
+CI is configured to run these checks and Skills CLI installation smoke tests for Claude Code, Codex, and Cursor. **Smoke tests do not prove that a model follows the skills correctly.** See [compatibility](docs/compatibility.md) and [behavioral scenarios](tests/scenarios.md).
 
-Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## License
-
-[MIT](LICENSE).
+[Contributing](CONTRIBUTING.md) · [Brand assets](docs/brand.md) · [MIT license](LICENSE) · [v1.0.0 release notes](docs/releases/1.0.0.md)

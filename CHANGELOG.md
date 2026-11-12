@@ -1,19 +1,19 @@
 # Changelog
 
+## 1.0.0 — 2026-11-13
+
+- Four independent portable skills, originally introduced in the 0.1 series.
+- Claude Code plugin metadata, Codex-compatible packaging and optional Cursor rules.
+- Clear host compatibility matrix, install troubleshooting, and honest verification levels.
+- Original SVG visual identity, before/after examples, guided demo and lightweight contribution process.
+- Strengthened distribution validator, regression tests and three-host CLI smoke tests in CI.
+
+See [release notes](docs/releases/1.0.0.md).
+
 ## 0.1.1 — 2026-11-13
 
-- Documented one-command installation and explicit per-agent skill selection.
-- Added an opt-in `AGENTS.md` standing-guidance template for users who want everyday scope discipline.
-- Added portable Agent Plugins and Claude Code marketplace manifests without hooks or new dependencies.
-- Added distribution validation and a Skills CLI installation smoke test to CI.
+- Initial one-command installation guidance, opt-in standing rules and plugin manifests.
 
 ## 0.1.0 — 2026-11-13
 
-Initial public release:
-
-- Four standalone skills: `unbullshit`, `unbullshit-plan`, `unbullshit-audit`, and `unbullshit-improve`.
-- Human-first decision interviews with recommendations and trade-offs.
-- Evidence-led auditing with explicit distinction between unjustified complexity, defects, and justified safeguards.
-- Lightweight improvement guidance, reusable examples, and structural validation.
-
-Behavioral quality depends on the host agent and the context supplied. This release does not claim universal compatibility or automatic evaluation of model behavior.
+- Initial four skill files and behavioral scenario inventory.

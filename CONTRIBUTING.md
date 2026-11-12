@@ -1,31 +1,22 @@
 # Contributing
 
-Unbullshit is a collection of portable instruction-only Agent Skills. Contributions should make the skills clearer, more evidence-led, more helpful to humans, or less likely to encourage unnecessary work.
+Unbullshit is a public, instruction-only skill collection. Contribute improvements supported by a specific user problem, rather than by adding process for its own sake.
 
-## Before changing a skill
+## Small contribution loop
 
-- Start from a concrete failure or use case. Describe the existing behavior and the desired behavior.
-- Keep each skill independently installable and self-contained.
-- Prefer editing an existing instruction to introducing a new framework, agent, configuration option, or mandatory checklist.
-- Keep metadata descriptions specific about *when* to activate the skill.
-- Make founder interviews adaptive: no compulsory question count, manufactured options, or endless re-approval.
-- Respect human decisions, explicit scope, genuine security boundaries, and truthful evidence.
-- Do not make "fewer files" or "less code" a substitute for useful outcomes.
-
-## Local checks
-
-Run:
+1. Report the exact scenario, prompt, host and observed failure (redact private material).
+2. Explain the desired outcome and how a change would help.
+3. Make a focused edit. Keep the four skills independently installable and preserve real safety and correctness requirements.
+4. Add or update a [behavioral test scenario](tests/scenarios.md).
+5. Run the checks and state what still needs a real host or model test.
 
 ```sh
 python3 scripts/validate.py
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-This validates structural constraints only. Test instruction changes against cases in [tests/scenarios.md](tests/scenarios.md), with an actual skills-compatible agent where possible. A strong change has examples where the skill simplifies the solution **and** where it correctly keeps justified complexity.
+For behavioral changes, test the same prompt with and without the skill where possible. Include counterexamples where a complex solution is justified. A passing structural check isn't proof of better agent judgment.
 
-## Pull requests
+A good PR describes: original failure, intended behavior, minimal change, tests, and what could be harmed by excessive simplification. No mandatory agents, new runtime dependencies, telemetry, or permission policies.
 
-Describe the behavior you changed, a before/after example, risks of overcorrection, and the scenarios checked. Keep PRs focused. Do not add external service dependencies for a documentation-only skill collection.
-
-## Scope
-
-This repository provides reusable decision guidance. It is not a permission engine, audit database, hosted product, or autonomous execution framework. Changes that would turn it into one require explicit discussion and demonstrated need.
+Contributions are under the repository's [MIT license](LICENSE).
