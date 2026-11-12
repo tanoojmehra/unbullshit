@@ -2,7 +2,7 @@
 
 <p align="center"><strong>Four open Agent Skills. Better decisions. Less unnecessary work.</strong></p>
 
-<p align="center"><a href="docs/install.md">Install</a> · <a href="docs/compatibility.md">Compatibility</a> · <a href="examples/demo.md">90-second demo</a> · <a href="examples/before-after.md">Before &amp; after</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
+<p align="center"><a href="docs/install.md">Install</a> · <a href="docs/compatibility.md">Compatibility</a> · <a href="examples/demo.md">Demos</a> · <a href="examples/before-after.md">Before &amp; after</a> · <a href="CONTRIBUTING.md">Contribute</a></p>
 
 Unbullshit is a free, open-source collection of four portable [Agent Skills](https://agentskills.io/) for pragmatic project decisions. It challenges invented requirements, speculative architecture, unnecessary AI agents, and process theater—without sacrificing what the user actually needs.
 
@@ -98,6 +98,6 @@ python3 scripts/evaluate_behavior.py \
 
 This produces counts of literal checks on **authored fixtures**, not a claim of better agent behavior. See [benchmarking](docs/benchmarking.md) for optional real-agent comparisons and human review.
 
-CI is also configured for installation smoke tests for Claude Code, Codex, and Cursor. **Smoke tests do not prove that a model follows the skills correctly.** See [compatibility](docs/compatibility.md) and [behavioral scenarios](tests/scenarios.md).
+**Smoke tests do not prove that a model follows the skills correctly.** See [compatibility](docs/compatibility.md) and [behavioral scenarios](tests/scenarios.md).
 
 [Contributing](CONTRIBUTING.md) · [Brand assets](docs/brand.md) · [MIT license](LICENSE) · [v1.0.0 release notes](docs/releases/1.0.0.md)
