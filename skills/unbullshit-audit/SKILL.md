@@ -39,7 +39,10 @@ For each credible candidate, ask:
 2. **Why is it there?** Locate the decision or owner intent when possible.
 3. **What cost does it cause?** Time, complexity, money, errors, risk, cognitive burden, or delayed delivery.
 4. **Is it justified?** Compare to actual requirements and simpler alternatives.
-5. **What would change safely?** Include migration and verification if removal affects live behavior.
+5. **What would change safely?** Name the simplest better alternative, the risk of modifying or removing the component, the safeguards to preserve, and a concrete verification method.
+6. **What is not known?** Identify missing owner intent, operational constraints or evidence. Insufficient support means **uncertain**, not a confident recommendation to delete.
+
+For every meaningful reported finding, connect the exact observation and available source (path and line, document or runtime trace if actually inspected), relevant business or engineering requirement, harm or unnecessary cost, better alternative, change risk, uncertainty and verification. Do not convert speculation into a file citation or an invented stakeholder requirement. An apparently redundant queue, cache, audit approval or agent may have a documented reason; a bug needs defect treatment, not a 'bullshit' label. Where new evidence contradicts an old finding, correct or reopen that record rather than defending the original classification.
 
 Classify findings honestly as:
 
@@ -65,10 +68,10 @@ Use the human to resolve **material intent or trade-offs**, not to substitute fo
 
 Lead with the overall judgment and the most important evidence, including what is already well justified. Then provide a prioritized set of **only** supported findings. For each meaningful finding, include:
 
-- **Observation and evidence:** Link/path/line, document, quote, or runtime result when available; otherwise the precise evidence gap.
+- **Observation and evidence:** Exact observed behavior, actual link/path/line, document or runtime result when inspected; otherwise the precise evidence gap. State the requirement against which it is evaluated.
 - **Why it matters:** Actual effect on users, maintainers, budget, time, or risk.
 - **Recommendation:** Retain, remove, simplify, combine, defer, replace, or investigate; explain why and what functionality must remain.
-- **Trade-off and confidence:** What may be lost, what you still need to confirm, and the safest verification.
+- **Trade-off, uncertainty and verification:** Risk of the proposed change, safeguards that must survive, what is unknown, and the cheapest reliable check before action.
 - **Priority:** Relative to the user's goals and impact, not a universal severity taxonomy.
 
 If asked, add a small sequence of proposed improvements; **do not** automatically create tickets, rewrite architecture, change policy, or edit files. Audits are read-only unless the user explicitly authorizes implementation.
@@ -84,6 +87,9 @@ Within that folder, use `findings/UB-NNNN.md` for each distinct supported findin
 Each finding must include a stable `id` and Markdown frontmatter fields: `classification` (`unjustified-complexity`, `unnecessary-friction`, `defect`, `justified-complexity`, `uncertain`), `status` (`open`, `needs-review`, `accepted`, `in-progress`, `resolved`, `wont-fix`), `priority`, `source: unbullshit-audit`, `created`, and `updated`. The body needs actual observation, evidence and limitations, recommendation, trade-offs and verification, and a dated decision/history entry. Do **not** treat defects, necessary protections, or low-confidence suspicions as confirmed bullshit. Keep the index consistent with files, and never silently overwrite or delete history.
 
 Recordkeeping permission is **not** permission to implement fixes or to turn findings into mandatory tasks.
+
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
 
 ## Done means
 

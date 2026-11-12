@@ -1,53 +1,15 @@
-# Before and after
+# Before / after: scripted response contrasts
 
-Illustrative conversation examples, **not measured agent results**.
+**All examples below are authored illustrations**. "Without" is a deliberately poor hypothetical answer; "With" is a desired example. Neither is an observed model result, user testimonial, real-world case study or quantified improvement. See [the fixture schema](../tests/behavioral/cases.json), [saved responses](../tests/behavioral/fixtures/), and [benchmarking](../docs/benchmarking.md) to reproduce literal checks and run real evaluations separately.
 
-## Base — ordinary feature
+| Skill and original task | Relevant context | Without (illustrative) | With (illustrative) | Improvement and requirements preserved | Limits / reproduction |
+| --- | --- | --- | --- | --- | --- |
+| unbullshit: CSV export | Escaping utility already exists | "Build a reporting platform." | "Reuse existing CSV logic; verify escaping, then stop." | Less speculative architecture; correct data handling retained | base-csv; no real code was built |
+| unbullshit-plan: AI document routing | Most delays involve missing forms; staff must approve | "Run five autonomous agents." | "Start with checklist/reminders; add one extractor only if useful, with human approval." | Right-sized release; manual compliance approval retained | plan-ai-proposal; founder can reject advice |
+| unbullshit-audit: redundant staging approval | Supplied deploy.yml shows duplicate staging approval; policy.md requires one, plus production signoff | "Remove all approvals." | "Remove the extra staging approval after verification; preserve production signoff." | Evidence-backed unnecessary friction finding; compliance control retained | audit-confirmed-friction; synthetic supplied files |
+| unbullshit-audit: queue + cache | Retry guarantee and upstream rate cap documented | "Delete both as bloat." | "Retain retries and rate-limit protection; verify costs before redesign." | Legitimately complex safeguard retained | audit-justified-queue; no live architecture inspected |
+| unbullshit-improve: confusing Save label | Existing UI patterns and accessibility | "Redesign the settings platform." | "Change to Save changes and verify the affected action." | Focused UX work; behavior and accessibility kept | improve-copy; no application tests executed |
+| unbullshit-plan: settled release choice | Approved mobile web; rejected native; no calendar sync | "Choose a platform and build native apps." | "Plan mobile-web manual confirmation; revisit sync only on new evidence." | Decision continuity; approval and exclusions retained | plan-continuity; supplied approved decision |
+| unbullshit-improve: permissions failure | Edit tool denied write, tests did not run | "The fix shipped and tests passed." | "Permission denied; change unverified, no completion claim." | Accurate execution status; avoids false assurance | improve-tool-failure; simulated tool result |
 
-**Request:** "Add CSV export to this contacts table."
-
-**Before:** "Let's add a reporting platform, worker queue, export templates and another database."
-
-**After (`unbullshit`):** "I'll inspect the existing table and reuse any CSV functionality. I'll add the export action with correct escaping, a relevant test, and stop. We can revisit background exports only if size or latency requires it."
-
-**Why:** A proportional solution, not a promise to skip correctness.
-
-## Plan — founder interview
-
-**Request:** "Let's build an AI-powered complaint portal."
-
-**Before:** "We'll use six agents, a vector database, real-time orchestration, and Kubernetes."
-
-**After (`unbullshit-plan`):** "If customers mainly submit complaints and your staff responds, a simple portal may cover the core need. AI triage could come later if volume or complexity warrants it. What is the biggest current pain: collecting cases, routing them, or resolving them?"
-
-**Why:** Interview the founder on the decision that changes the scope.
-
-## Audit — distinguish different problems
-
-**Request:** "Our release workflow has duplicate approvals and sometimes reports success after a failure."
-
-**Before:** "Delete every approval and replace the deployment system."
-
-**After (`unbullshit-audit`):** "The false-success report is a defect. The two approvals may represent duplicated policy, but I'll examine their purpose and evidence before recommending removal. These are different problems and need different solutions."
-
-**Why:** Evidence first; no quota of things to remove.
-
-## Improve — focused pain point
-
-**Request:** "The save button is confusing."
-
-**Before:** "We need a new settings architecture, process map and state machine."
-
-**After (`unbullshit-improve`):** "I'll inspect the save action, clarify the label and feedback with existing UI patterns, preserve behavior and test the affected path."
-
-**Why:** A small improvement doesn't require an enterprise project.
-
-## Counterexample — complexity is justified
-
-**Request:** "The service must remain available if a whole region fails."
-
-**Bad reduction:** "Use one server because distributed systems are overengineering."
-
-**Correct judgment:** "That availability requirement justifies redundancy. First define recovery time, acceptable data loss, residency and budget; then recommend the simplest design that meets them."
-
-**Why:** The objective is justified complexity, not minimal complexity.
+These contrasts demonstrate **what good behavior looks like**, not that using a skill causes the result. For a reproduced agent comparison, save exact baseline and skill-enabled raw outputs, settings, model versions, permissions, evaluation rubric and reviewer judgments. For a real-world case study, obtain permission and remove sensitive details.

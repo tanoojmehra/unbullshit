@@ -35,6 +35,14 @@ That is expected until a separate public plugin submission is completed. Use the
 
 Copy [the MDC file](../.cursor/rules/unbullshit.mdc) to **the target project's** `.cursor/rules/` and check its Always Apply state in Cursor's rules UI. It applies to Agent, not Tab completion. Skills installation alone doesn't install this rule.
 
+## An installed skill cannot find scripts/unbullshit_log.py
+
+This is normal. Individual SKILL.md installs do not include the repository's optional helper. For an explicitly authorized record, follow the project-local Markdown record format in [recordkeeping](recordkeeping.md) using available host file tools, preserving history and avoiding concurrent write collisions. Do not create a register for ordinary work; never change a register during a read-only audit.
+
+## A benchmark report says checks passed
+
+Literal contains/absent/question-count checks are only diagnostic proxies, not proof an agent followed the user's constraints. Confirm that the response fixtures are labeled illustrative or saved-run and review the complete responses and human rubric in [benchmarking](benchmarking.md). Do not claim live host compatibility from offline fixture checks.
+
 ## CI fails
 
 ```sh

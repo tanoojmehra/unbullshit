@@ -13,11 +13,11 @@ Use for an existing feature, interaction, workflow, process, or modest enhanceme
 ## The focused loop
 
 1. **Understand the pain.** What is inconvenient, confusing, slow, costly, fragile, or missing? What user-visible outcome would count as better?
-2. **Inspect the relevant area.** Look at existing behavior, patterns, constraints, and dependencies. Avoid sweeping scans unless the change genuinely spans the project.
+2. **Inspect the relevant area.** Look at existing behavior, patterns, constraints, previous approved decisions, existing utilities and dependencies. Avoid sweeping scans unless the change genuinely spans the project.
 3. **Find the simplest sufficient improvement.** Prefer reuse, consolidation, clarification, or a small targeted change over a new framework, service, workflow, or feature family.
 4. **Surface a material choice if one exists.** Explain trade-offs in plain language, recommend an approach, and ask **one focused question** when the answer affects behavior, data, architecture, or significant cost. Otherwise proceed.
 5. **Act within the request.** If the user authorized implementation and tools allow it, make the bounded change. If the user asked for ideas or a review only, present recommendations without modifying anything.
-6. **Verify and stop.** Check relevant outcomes and regressions; report what changed, what was actually tested, and anything uncertain.
+6. **Verify and stop.** Check relevant outcomes and regressions, including critical existing requirements; report what changed, tests actually run and their results. If a write failed, a tool was unavailable, or tests failed, report partial progress and the blocker, not completion. Stop rather than initiating unrelated cleanup.
 
 ## Reality check
 
@@ -41,7 +41,7 @@ When the user disagrees with the recommendation, respect the decision within aut
 
 For advice-only work: summarize the pain, recommend the targeted change, and give the key trade-off or next step.
 
-For implementation: give a short outcome, changed areas, relevant checks performed, and remaining limitations. Do not generate a lengthy plan, risk register, tickets, changelog, or large refactor unless the task warrants or explicitly requests them.
+For implementation: give a short outcome, changed areas, relevant checks actually performed (including failures), and remaining limitations. Do not generate a lengthy plan, risk register, tickets, changelog, or large refactor unless the task warrants or explicitly requests them.
 
 ## Boundaries
 
@@ -54,6 +54,9 @@ Routine small improvements need no register, ticket, or extra ceremony. If an au
 Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
 
 For a new significant finding, use the same stable-ID register with a supported classification and actual evidence; do not manufacture an audit for a minor fix. For consequential choices the human wants saved, use `decisions/YYYY-MM-DD-topic.md`. Keep status history, existing links, and real safeguards intact. Logging does not authorize changes outside the requested improvement.
+
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
 
 ## Done means
 

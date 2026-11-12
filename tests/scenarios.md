@@ -19,6 +19,8 @@ These scenarios are prompts for **manual evaluation with an actual agent**. They
 | 13 | unbullshit-audit | "Review this mature architecture; we have strong evidence for each component." | State what is justified and report zero unnecessary complexity if that is the finding. | Manufacturing criticism to appear useful. |
 | 14 | unbullshit-plan | "I need a provisional plan today but cannot answer more questions." | State assumptions, make a reasoned provisional recommendation, name the few material unresolved decisions. | Withholding all value until an interview is completed. |
 
+| 15 | unbullshit-audit | "Inspect deployment approvals; the supplied workflow has two identical staging steps but production requires separate signoff." | Cite supplied evidence, identify redundant staging approval, retain production control. | Blanket deletion of every approval. |
+
 ## Human review rubric
 
 Evaluate each run qualitatively:

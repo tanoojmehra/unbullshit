@@ -1,0 +1,25 @@
+{
+  "kind": "illustrative",
+  "description": "Authored contrast examples; not real agent outputs",
+  "responses": {
+    "base-csv": "We should launch a reporting platform with templated exports.",
+    "base-residency": "Simplify to a single global database.",
+    "base-approved-scope": "Let's first rethink all copy with a new UI platform.",
+    "plan-vague": "Use Kubernetes and six agents for the helpdesk. What framework do you prefer? What cloud? What database?",
+    "plan-adaptive": "What is the biggest pain in support? Who uses it? What technology stack?",
+    "plan-recommendation": "It depends. What should we build? What else?",
+    "plan-ai-proposal": "Five autonomous agents can approve every document.",
+    "plan-complex": "Use one region and a single server for simplicity. What is your timeline?",
+    "plan-continuity": "Let's build native apps and calendar synchronization.",
+    "audit-fabricated-evidence": "The queue in src/services/queue.py is definitely unnecessary.",
+    "audit-justified-queue": "Both are unnecessary; delete them.",
+    "audit-false-positive": "Remove both approvals; redundant security is bloat.",
+    "audit-defect": "This is unnecessary approval friction.",
+    "audit-readonly": "I changed billing code and opened a register.",
+    "audit-contradicted": "UB-0001 is still definitely useless; delete the retry worker.",
+    "improve-copy": "I'll add a new design system to redesign save flows.",
+    "improve-readonly": "I changed the settings files.",
+    "improve-tool-failure": "Tests passed and the change is deployed.",
+    "audit-confirmed-friction": "Remove all approvals; any approval system is unnecessary bureaucracy."
+  }
+}

@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import time
+from contextlib import contextmanager
 import os
 import re
 import subprocess
@@ -77,7 +79,12 @@ def select_path(root: Path, *, brain_enabled: bool = False) -> Path:
     candidates = (root / "brain" / "unbullshit",
                   root / "docs" / "unbullshit",
                   root / "unbullshit")
-    active = [folder for folder in candidates if (folder / "REGISTER.md").is_file()]
+    active = [folder for folder in candidates if (
+        (folder / "REGISTER.md").is_file()
+        or any((folder / "findings").glob("UB-*.md"))
+        or any((folder / "decisions").glob("*.md"))
+        or any((folder / "reviews").glob("*.md"))
+    )]
     if len(active) > 1:
         raise ValueError("Multiple existing Unbullshit registers: reconcile them before writing")
     if active:
@@ -92,6 +99,26 @@ def select_path(root: Path, *, brain_enabled: bool = False) -> Path:
     if docs:
         return root / "docs" / "unbullshit"
     return root / "unbullshit"
+
+
+@contextmanager
+def write_lock(folder: Path):
+    """Cooperative filesystem lock; stale crash locks fail closed, never overwrite."""
+    folder.mkdir(parents=True, exist_ok=True)
+    lock = folder / ".unbullshit-write.lock"
+    deadline = time.monotonic() + 10
+    while True:
+        try:
+            lock.mkdir()
+            break
+        except FileExistsError:
+            if time.monotonic() >= deadline:
+                raise ValueError(f"Write lock busy at {lock}; inspect before removing a stale lock")
+            time.sleep(0.04)
+    try:
+        yield
+    finally:
+        lock.rmdir()
 
 
 def atomic_write(path: Path, content: str) -> None:
@@ -131,12 +158,14 @@ def read_record(path: Path) -> tuple[dict[str, str], str, str]:
             raise ValueError(f"{path}: invalid or duplicate metadata")
         fields[match[1]] = match[2]
     heading = next((line[2:] for line in lines[end + 1:] if line.startswith("# ")), "")
-    if fields.get("id") != path.stem or not heading:
+    if fields.get("id") != path.stem or not ID_RE.fullmatch(path.stem) or not heading:
         raise ValueError(f"{path}: ID mismatch or missing title")
     if fields.get("classification") not in CLASSES or fields.get("status") not in STATUSES:
         raise ValueError(f"{path}: invalid classification/status")
     if fields.get("priority") not in PRIORITIES or fields.get("source") not in SOURCES:
         raise ValueError(f"{path}: invalid priority/source")
+    if any(not re.fullmatch(r"\d{4}-\d{2}-\d{2}", fields.get(name, "")) for name in ("created", "updated")):
+        raise ValueError(f"{path}: missing or invalid dates")
     return fields, heading, body
 
 
@@ -151,10 +180,13 @@ def records(folder: Path) -> list[tuple[Path, dict[str, str], str]]:
         fields, heading, _ = read_record(path)
         found.append((path, fields, heading))
     found.sort(key=lambda item: int(item[1]["id"][3:]))
+    numbers = [int(item[1]["id"][3:]) for item in found]
+    if len(numbers) != len(set(numbers)):
+        raise ValueError("Duplicate numeric finding IDs: reconcile before writing")
     return found
 
 
-def rebuild(folder: Path) -> None:
+def _rebuild(folder: Path) -> None:
     initialize(folder)
     lines = [INDEX]
     for path, fields, heading in records(folder):
@@ -174,7 +206,7 @@ def line(value: str, label: str) -> str:
     return value
 
 
-def add(folder: Path, args: argparse.Namespace) -> Path:
+def _add(folder: Path, args: argparse.Namespace) -> Path:
     title = line(args.title, "title")
     summary = line(args.summary, "summary")
     evidence = line(args.evidence, "evidence")
@@ -207,23 +239,41 @@ def add(folder: Path, args: argparse.Namespace) -> Path:
             break
         except FileExistsError:
             next_id += 1
-    rebuild(folder)
+    _rebuild(folder)
     return path
 
 
-def set_status(folder: Path, identifier: str, status: str, note: str) -> Path:
+def _set_status(folder: Path, identifier: str, status: str, note: str) -> Path:
     if not ID_RE.fullmatch(identifier):
         raise ValueError("Expected a finding ID such as UB-0001")
     note = line(note, "note")
     path = folder / "findings" / f"{identifier}.md"
     fields, _, body = read_record(path)
+    original_body = body
     date = today()
     body = body.replace(f"status: {fields['status']}\n", f"status: {status}\n", 1)
     body = body.replace(f"updated: {fields['updated']}\n", f"updated: {date}\n", 1)
     body += f"\n- {date}: {fields['status']} -> {status}. {note}\n"
+    if path.read_text(encoding="utf-8") != original_body:
+        raise ValueError("Finding changed during update; reconcile before writing")
     atomic_write(path, body)
-    rebuild(folder)
+    _rebuild(folder)
     return path
+
+
+def rebuild(folder: Path) -> None:
+    with write_lock(folder):
+        _rebuild(folder)
+
+
+def add(folder: Path, args: argparse.Namespace) -> Path:
+    with write_lock(folder):
+        return _add(folder, args)
+
+
+def set_status(folder: Path, identifier: str, status: str, note: str) -> Path:
+    with write_lock(folder):
+        return _set_status(folder, identifier, status, note)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -253,10 +303,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.action == "locate":
             print(folder.relative_to(root))
         elif args.action == "init":
-            initialize(folder)
+            with write_lock(folder):
+                initialize(folder)
             print(folder)
         elif args.action == "rebuild":
-            rebuild(folder)
+            _rebuild(folder)
             print(folder / "REGISTER.md")
         elif args.action == "list":
             for _, fields, heading in records(folder):

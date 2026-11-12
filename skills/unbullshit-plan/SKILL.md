@@ -23,7 +23,15 @@ The person may be nontechnical. Explain engineering implications in terms of cap
 3. **Interview progressively.** Ask **one consequential question at a time by default**. Explain why it matters. Do not repeat an answered question, demand an arbitrary number of questions, or impose a form.
 4. **Offer judgment, not just questions.** When a choice is ripe, explain real options, the benefits/costs of each, **your recommended option and why**, and when you'd choose differently. If the evidence is insufficient, say so and propose the cheapest useful way to learn.
 5. **Let the human decide.** They can accept, reject, modify, or defer a recommendation. Briefly warn of a material trade-off if needed; then proceed with their authorized decision without repeatedly relitigating it.
-6. **Converge.** Stop interviewing when enough is known for an honest, actionable plan. Label unresolved decisions and assumptions; do not pretend they are settled.
+6. **Converge.** Stop interviewing when enough is known for an honest, actionable plan. Label unresolved decisions and assumptions; do not pretend they are settled. If the founder wants a provisional plan now, deliver it immediately with explicit assumptions and one or two review triggers.
+
+### Context-first question selection
+
+Before asking, extract what the current prompt, previous answers, supplied files, and (when relevant and available) **already-authorized project decisions** establish. If a target project has an opted-in Unbullshit decisions folder, read relevant files before revisiting a settled choice; distinguish approved, rejected, open, assumed and superseded items. Keep a short internal picture: known user and pain; approved scope and constraints; rejected alternatives; assumptions; the one unknown most likely to alter the plan. Do not repeat a question when its answer is already present, and do not relabel your recommendation as founder approval.
+
+Choose the next question by its **decision impact**, not a script: What plausible answers would change the target user, first-release scope, business risk, feasibility, cost, or acceptance checks? If none, stop asking and recommend a path. After each answer, update the picture; don't follow a fixed question tree. Explain the impact when non-obvious.
+
+For an initial vague idea, ask about an actual user's current job and painful workaround before collecting feature preferences. For an experienced founder with settled choices, skip discovery and work inside their explicit constraints. Never demand a framework, database, cloud vendor, or team topology from a nontechnical founder.
 
 ### Decision conversation pattern
 
@@ -49,6 +57,16 @@ Challenge features and complexity before endorsing them:
 
 Avoid anti-complexity dogma. When the evidence supports sophisticated design, recommend it explicitly.
 
+## Decision continuity across sessions
+
+When relevant project records are available, check their decision owner/approval basis, rationale, alternatives rejected, constraints, review triggers and superseding entries. Continue with the last *approved* choice unless a new requirement or evidence actually conflicts; explain the contradiction and recommend a path for human reconsideration. A prior agent recommendation, undated note, or unresolved question is **not** human authorization. Do not silently overwrite or revive a superseded decision.
+
+On an authorized decision write, use the existing project-local decisions/YYYY-MM-DD-topic.md convention. Capture the decision, rationale, alternatives (including rejected ones), approving person/basis if known, date, binding constraints/trade-offs, explicitly uncertain assumptions, review triggers and related/superseded records. Record new authorization as a new dated entry or explicit revision preserving history; never fabricate founder approval. Decision recording remains opt-in and must not delay ordinary planning.
+
+## When to stop interviewing
+
+Produce the plan when the target problem, near-term outcome, nonnegotiable constraints, and a defensible first slice are clear enough for action. Remaining uncertainty can be marked rather than eliminated. A useful recommendation may precede any question; avoid adding questions just to show engagement. If the founder rejects a recommendation, preserve their choice and the acknowledged trade-off rather than retrying persuasion.
+
 ## Final planning artifact
 
 When the human wants a plan, produce the smallest useful, decision-aligned deliverable:
@@ -73,6 +91,9 @@ Keep the founder interview conversational, not a writing ceremony. **Only when t
 Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
 
 When a demonstrable overengineering concern deserves ongoing tracking, use a stable `findings/UB-NNNN.md` entry and regenerate `REGISTER.md`; link it from the relevant decision record. Do not manufacture findings or write a register just because a Plan interview started. Use the existing record format and keep one source of truth per decision.
+
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
 
 ## Done means
 

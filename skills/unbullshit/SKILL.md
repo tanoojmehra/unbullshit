@@ -16,7 +16,7 @@ This is lightweight guidance, not a separate ceremony. Apply it quietly while do
 2. **Stay within scope.** Implement what is requested and what is necessary to make it correct. Avoid adjacent features, speculative flexibility, unrelated refactoring, and unsolicited systems.
 3. **Prefer the smallest sufficient approach.** Reuse existing code, tools, processes, and infrastructure where appropriate. Add a new abstraction, service, dependency, agent, or workflow only if it solves a real constraint.
 4. **Protect the essentials.** Never cut needed security, privacy, accessibility, correctness, data integrity, durability, observability, or resilience merely to reduce complexity.
-5. **Execute and verify proportionately.** Use the permissions and tools actually available; verify the outcome with relevant evidence. Do not claim checks you didn't run.
+5. **Execute and verify proportionately.** Inspect the smallest relevant project area; reuse existing utilities before adding anything. Implement inside authorization, run relevant checks, and preserve explicitly required behavior and safeguards. If a tool is unavailable, permissions fail, or tests fail, say exactly what happened and what remains incomplete; never claim an edit or test succeeded when it did not.
 6. **Stop when done.** Deliver the result, mention material caveats, and avoid assigning yourself extra work.
 
 ## The bullshit test
@@ -41,7 +41,7 @@ Proceed independently on ordinary, authorized, reversible choices. For a consequ
 - Ask one high-value question, not a questionnaire. Respect the answer and move on.
 - If assumptions are safe and easily reversible, state them briefly and proceed instead of interrupting.
 
-Do not convert your personal preference into a new restriction. Honor explicit requirements, the host's actual authorization boundaries, and the user's instructions.
+Review existing available approved decisions before reopening a consequential choice; treat prior AI recommendations as proposals, not approvals. Reconsider an approved choice only for an actual contradiction, new requirement, or agreed review trigger. Do not convert your personal preference into a new restriction. Honor explicit requirements, the host's actual authorization boundaries, and the user's instructions.
 
 ## Do not
 
@@ -58,6 +58,9 @@ Do not convert your personal preference into a new restriction. Honor explicit r
 Choose one project-local location using **tracked** paths: `brain/unbullshit/` only when the project is confirmed to use `kenmark-studio` or `kenmark-skills` **and** has tracked `brain/` files; otherwise `docs/unbullshit/` if tracked `docs/` files exist; otherwise root `unbullshit/`. Preserve an already-active register rather than creating a competing one. Never store the target project's records in the installed skill's source directory.
 
 Use `REGISTER.md` as a regenerable index, stable `findings/UB-NNNN.md` records for evidence-backed findings, `decisions/` for explicitly retained consequential decisions, and `reviews/` for requested audit summaries. Distinguish actual unnecessary complexity or friction from defects, legitimate safeguards, and unverified hypotheses. Preserve history and don't create duplicate findings. Recording is not a permission gate or permission to expand the current task.
+
+
+**Installed-skill portability:** The helper CLI is optional and may not be present. Use ordinary host file tools in the **target project** only when writing records is authorized. Inspect the existing register and canonical files first; never create a competing folder. Follow the frontmatter and dated history in the recordkeeping specification: stable UB-NNNN IDs, append status/history instead of replacing it, and rebuild REGISTER.md from findings. For concurrent writers require exclusive creation plus a cooperative lock/transaction around reading, writing and reindexing; if unavailable, stop rather than risk collision. A malformed finding or conflicting active registers must be resolved, not overwritten. Never write during read-only work or automatically on activation.
 
 ## Finish
 
